@@ -1,0 +1,56 @@
+@import "../../assets/styles/themes";
+
+
+@mixin accordion-item-host-styles ($prefix: "host") {
+  // theme
+  :#{$prefix}([theme="dark"]) {
+    @include calcite-dark-theme();
+  }
+
+  // scale variants for child
+  :#{$prefix}([scale="s"]) {
+    --calcite-accordion-item-spacing-unit: #{$baseline/3};
+    --calcite-accordion-item-padding: var(--calcite-accordion-item-spacing-unit)
+      var(--calcite-accordion-item-spacing-unit);
+    @include font-size(-3);
+  }
+
+  :#{$prefix}([scale="m"]) {
+    --calcite-accordion-item-spacing-unit: #{$baseline/2};
+    --calcite-accordion-item-padding: var(--calcite-accordion-item-spacing-unit)
+      var(--calcite-accordion-item-spacing-unit);
+    @include font-size(-2);
+  }
+
+  :#{$prefix}([scale="l"]) {
+    --calcite-accordion-item-spacing-unit: #{$baseline};
+    --calcite-accordion-item-padding: var(--calcite-accordion-item-spacing-unit)
+      var(--calcite-accordion-item-spacing-unit);
+    @include font-size(-1);
+  }
+
+  // icon position variants for child
+  :#{$prefix}([icon-position="start"]) {
+    --calcite-accordion-item-flex-direction: row-reverse;
+    --calcite-accordion-item-icon-rotation: 90deg;
+    --calcite-accordion-item-active-icon-rotation: 180deg;
+    --calcite-accordion-item-icon-rotation-rtl: -90deg;
+    --calcite-accordion-item-active-icon-rotation-rtl: -180deg;
+    --calcite-accordion-item-icon-spacing-start: 0;
+    --calcite-accordion-item-icon-spacing-end: var(
+      --calcite-accordion-item-spacing-unit
+    );
+  }
+
+  :#{$prefix}([icon-position="end"]) {
+    --calcite-accordion-item-flex-direction: row;
+    --calcite-accordion-item-icon-rotation: -90deg;
+    --calcite-accordion-item-active-icon-rotation: -180deg;
+    --calcite-accordion-item-icon-rotation-rtl: 90deg;
+    --calcite-accordion-item-active-icon-rotation-rtl: 180deg;
+    --calcite-accordion-item-icon-spacing-start: var(
+      --calcite-accordion-item-spacing-unit
+    );
+    --calcite-accordion-item-icon-spacing-end: 0;
+  }
+}
