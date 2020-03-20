@@ -13,7 +13,6 @@ import {
 import { CSS } from "./resources";
 import {
   CalcitePlacement,
-  defaultOffsetDistance,
   createPopper,
   updatePopper
 } from "../../utils/popper";
@@ -62,11 +61,6 @@ export class CalcitePopover {
   @Prop({ reflect: true }) disableFlip = false;
 
   /**
-   * Removes the caret pointer.
-   */
-  @Prop({ reflect: true }) disablePointer = false;
-
-  /**
    * Defines the available placements that can be used when a flip occurs.
    */
   @Prop() flipPlacements?: Placement[];
@@ -74,7 +68,7 @@ export class CalcitePopover {
   /**
    * Offset the position of the popover away from the reference element.
    */
-  @Prop({ reflect: true }) offsetDistance = defaultOffsetDistance;
+  @Prop({ reflect: true }) offsetDistance = 0;
 
   @Watch("offsetDistance")
   offsetDistanceOffsetHandler() {
@@ -148,8 +142,6 @@ export class CalcitePopover {
   @State() _referenceElement: HTMLElement = this.getReferenceElement();
 
   popper: Popper;
-
-  arrowEl: HTMLDivElement;
 
   closeButtonEl: HTMLButtonElement;
 
@@ -271,10 +263,8 @@ export class CalcitePopover {
 
   getModifiers(): Partial<Modifier<any>>[] {
     const {
-      arrowEl,
       flipPlacements,
       disableFlip,
-      disablePointer,
       offsetDistance,
       offsetSkidding
     } = this;
@@ -289,17 +279,6 @@ export class CalcitePopover {
       };
     }
 
-    const arrowModifier: Partial<Modifier<any>> = {
-      name: "arrow",
-      enabled: !disablePointer
-    };
-
-    if (arrowEl) {
-      arrowModifier.options = {
-        element: arrowEl
-      };
-    }
-
     const offsetModifier: Partial<Modifier<any>> = {
       name: "offset",
       enabled: true,
@@ -308,7 +287,7 @@ export class CalcitePopover {
       }
     };
 
-    return [arrowModifier, flipModifier, offsetModifier];
+    return [flipModifier, offsetModifier];
   }
 
   createPopper(): void {
@@ -370,11 +349,8 @@ export class CalcitePopover {
   }
 
   render() {
-    const { _referenceElement, open, disablePointer } = this;
+    const { _referenceElement, open } = this;
     const displayed = _referenceElement && open;
-    const arrowNode = !disablePointer ? (
-      <div class={CSS.arrow} ref={arrowEl => (this.arrowEl = arrowEl)}></div>
-    ) : null;
 
     return (
       <Host
@@ -385,7 +361,6 @@ export class CalcitePopover {
         aria-hidden={!displayed ? "true" : "false"}
         id={this.getId()}
       >
-        {arrowNode}
         <div class={CSS.container}>
           {this.renderImage()}
           <div class={CSS.content}>

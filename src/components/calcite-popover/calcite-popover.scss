@@ -1,7 +1,6 @@
 $image_max_height: 200px;
 
 @include popperHost();
-@include popperArrow();
 
 .container {
   border-radius: var(--calcite-border-radius);

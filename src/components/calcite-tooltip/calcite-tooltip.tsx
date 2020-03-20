@@ -13,7 +13,6 @@ import { Modifier, Instance as Popper } from "@popperjs/core";
 import { guid } from "../../utils/guid";
 import {
   CalcitePlacement,
-  defaultOffsetDistance,
   createPopper,
   updatePopper
 } from "../../utils/popper";
@@ -34,7 +33,7 @@ export class CalciteTooltip {
   /**
    * Offset the position of the popover away from the reference element.
    */
-  @Prop({ reflect: true }) offsetDistance = defaultOffsetDistance;
+  @Prop({ reflect: true }) offsetDistance = 0;
 
   @Watch("offsetDistance")
   offsetDistanceOffsetHandler() {
@@ -101,8 +100,6 @@ export class CalciteTooltip {
   @Element() el: HTMLCalciteTooltipElement;
 
   @State() _referenceElement: HTMLElement = this.getReferenceElement();
-
-  arrowEl: HTMLDivElement;
 
   popper: Popper;
 
@@ -209,15 +206,7 @@ export class CalciteTooltip {
   }
 
   getModifiers(): Partial<Modifier<any>>[] {
-    const { arrowEl, offsetDistance, offsetSkidding } = this;
-
-    const arrowModifier: Partial<Modifier<any>> = {
-      name: "arrow",
-      enabled: true,
-      options: {
-        element: arrowEl
-      }
-    };
+    const { offsetDistance, offsetSkidding } = this;
 
     const offsetModifier: Partial<Modifier<any>> = {
       name: "offset",
@@ -227,7 +216,7 @@ export class CalciteTooltip {
       }
     };
 
-    return [arrowModifier, offsetModifier];
+    return [offsetModifier];
   }
 
   createPopper(): void {
@@ -274,7 +263,6 @@ export class CalciteTooltip {
         aria-hidden={!displayed ? "true" : "false"}
         id={this.getId()}
       >
-        <div class={CSS.arrow} ref={arrowEl => (this.arrowEl = arrowEl)}></div>
         <div class={CSS.container}>
           <slot />
         </div>

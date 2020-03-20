@@ -72,13 +72,3 @@ export function updatePopper({
     placement
   });
 }
-
-export function hypotenuse(sideA: number, sideB: number): number {
-  return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
-}
-
-const visiblePointerSize = 4;
-
-export const defaultOffsetDistance = Math.ceil(
-  hypotenuse(visiblePointerSize, visiblePointerSize)
-);
