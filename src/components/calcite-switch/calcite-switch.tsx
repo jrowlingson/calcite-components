@@ -96,7 +96,7 @@ export class CalciteSwitch {
         aria-checked={this.switched.toString()}
         tabIndex={this.tabIndex}
       >
-        <div class="track">
+        <div class="bg-red-400 track">
           <div class="handle" />
         </div>
         <slot />

@@ -111,10 +111,11 @@ export class CalciteCheckbox {
     return (
       <Host
         role="checkbox"
+        class="bg-red-500"
         aria-checked={this.checked.toString()}
         tabindex={this.disabled ? "-1" : "0"}
       >
-        <svg class="check-svg" viewBox="0 0 16 16">
+        <svg class="check-svg bg-green-300" viewBox="0 0 16 16">
           <path d={this.getPath()} fill="white" />
         </svg>
         <slot />
