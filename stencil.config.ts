@@ -68,7 +68,7 @@ export const config: Config = {
     sass({
       injectGlobalPaths: ["src/assets/styles/includes.scss"]
     }),
-    tailwind()
+    tailwind('./tailwind.config.js')
   ],
   testing: {
     moduleNameMapper: {
