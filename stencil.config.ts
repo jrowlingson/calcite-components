@@ -1,5 +1,6 @@
 import { Config } from "@stencil/core";
 import { sass } from "@stencil/sass";
+import tailwind from 'rollup-plugin-tailwind';
 
 export const config: Config = {
   namespace: "calcite",
@@ -65,7 +66,8 @@ export const config: Config = {
   plugins: [
     sass({
       injectGlobalPaths: ["src/assets/styles/includes.scss"]
-    })
+    }),
+    tailwind('./tailwind.config.js')
   ],
   testing: {
     moduleNameMapper: {
