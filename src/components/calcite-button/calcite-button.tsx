@@ -127,7 +127,246 @@ export class CalciteButton {
     }
   }
 
+  //blue-solid
+  // background: --calcite-ui-blue-1   ~ blue
+  // hover/focus: --calcite-ui-blue-2  ~ blue-light
+  // active: --calcite-ui-blue-1       ~ blue
+  //red-solid
+  // background: --calcite-ui-red-1   ~ red
+  // hover/focus: --calcite-ui-red-2  ~ red-light
+  // active: --calcite-ui-red-1       ~ red
+
+  //light-solid
+  // background: $blk-020
+  // hover/focus: $blk-010
+  // active: $blk-020
+
+  //dark-solid
+  // background: $blk-180
+  // hover/focus: $blk-170
+  // active: $blk-180
+  //----------------------------------------
+  //DARK blue-solid
+  // background: --calcite-ui-blue-1-dark
+  // hover/focus: --calcite-ui-blue-2-dark
+  // active: --calcite-ui-blue-1-dark
+  //DARK red-solid
+  // background: --calcite-ui-red-1-dark
+  // hover/focus: --calcite-ui-red-2-dark
+  // active: --calcite-ui-red-1-dark
+
+  //DARK light-solid
+  // background: $blk-020
+  // hover/focus: $blk-030
+  // active: $blk-020
+
+  //DARK dark-solid
+  // background: $blk-180
+  // hover/focus: $blk-190
+  // active: $blk-180
+
+  //---------------------------------------
+  //background appearance = outline: white
+  //blue-outline
+  // border + text: calcite-ui-blue-3-light, on hover 2px border, on active 3px
+  //red-outline
+  //border + text: calcite-ui-blue-3-light, on hover 2px border, on active 3px
+  //light-outline
+  //border: $blk-020, on hover 2px border, on active 3px
+  //text: $blk-230
+  //dark-outline
+  //border: $blk-180, on hover 2px border, on active 3px
+  //text: $blk-230
+  //---------------------------------------
+  //background appearance = outline: $blk-200
+  //DARK blue-outline
+  // border + text: calcite-ui-blue-1-dark, on hover 2px border, on active 3px
+  // focus: calcite-ui-blue-3-dark
+  //DARK red-outline
+  //border + text: calcite-ui-red-1-dark, on hover 2px border, on active 3px
+  // focus: calcite-ui-red-3-dark
+  //DARK light-outline
+  //border: $blk-020, on hover 2px border, on active 3px
+  //focus: $blk-030
+  //text: $white
+  //DARK dark-outline
+  //border: $$blk-180, on hover 2px border, on active 3px
+  //focus: $blk-170
+  //text: white
+  //---------------------------------------------------------
+  // blue-transparent
+  //normal: calcite-ui-blue-3-light
+  //hover: calcite-ui-blue-2-light
+  // red-transparent
+  //normal: calcite-ui-red-3-light
+  //hover: calcite-ui-red-2-light
+  // light-transparent
+  //normal: calcite-ui-blue-3-light
+  //hover: calcite-ui-blue-2-light
+  // dark-transparent
+  //normal: calcite-ui-blue-3-light
+  //hover: calcite-ui-blue-2-light
+  //----------------------------------------------
+  // DARK blue-transparent
+  //normal: calcite-ui-blue-1-dark
+  //hover: calcite-ui-blue-2-DARK
+  //focus: calcite-ui-blue-3-dark
+  // DARK red-transparent
+  //normal: calcite-ui-red-1-dark
+  //hover: calcite-ui-red-2-DARK
+  //focus: calcite-ui-red-3-dark
+  // DARK light-transparent
+  //normal: $blk-010
+  //hover: white
+  //focus:$blk-020
+  // DARK dark-transparent
+  //normal: $blk-200
+  //hover: $blk-180
+  //focus: $blk-220
+  //----------------------------------------------
+  // blue-inline
+  //normal: calcite-ui-blue-3-light
+  //hover: calcite-ui-blue-2-light
+  //focus: calcite-ui-blue-2-light
+  // red-inline
+  //normal: $h-rr-070
+  //hover: calcite-ui-red-2-light
+  //focus: calcite-ui-red-2-light
+  // light-inline
+  //normal: $blk-010
+  //hover: white
+  //focus: white
+  // dark-inline
+  //normal:$blk-200
+  //hover:$blk-180
+  //focus:$blk-180
+
+  //----------------------------------------------
+  // DARK blue-inline
+  //normal:calcite-ui-blue-1-dark
+  //hover: calcite-ui-blue-2-dark
+  //focus: calcite-ui-blue-2-dark
+  // DARK red-inline
+  //normal:calcite-ui-red-1-dark
+  //hover: calcite-ui-red-2-dark
+  //focus: calcite-ui-red-2-dark
+  // DARK light-inline
+  //normal:$blk-010
+  //hover: white
+  //focus: white
+  // DARK dark-inline
+  //normal:$blk-200
+  //hover:$blk-180
+  //focus:$blk-180
+
+  getColorClasses() {
+    // color, appearance, theme
+    const { color, appearance, theme } = this;
+    let standardColor;
+    let secondaryColor;
+    let textColor;
+
+    if (color === "light") {
+      standardColor = "gray-lighter";
+      secondaryColor = theme === "light" ? "gray-lightest" : "gray-light";
+      textColor =
+        appearance === "solid" ||
+        (appearance === "outline" && theme === "light")
+          ? "gray-dark"
+          : "gray-lighter";
+    }
+    if (color === "dark") {
+      standardColor = "gray-dark";
+      secondaryColor = theme === "light" ? "gray" : "gray-darker";
+      textColor =
+        appearance === "solid" || (appearance === "outline" && theme === "dark")
+          ? "white"
+          : "gray-dark";
+    }
+
+    if (color !== "light" && color !== "dark") {
+      standardColor = theme === "light" ? color : `${color}-light`;
+      secondaryColor = theme === "light" ? `${color}-light` : color;
+    }
+    let finalTextColor;
+    let backgroundColor;
+    switch (appearance) {
+      case "solid":
+        finalTextColor =
+          textColor || (theme === "light" ? "white" : "gray-dark");
+        return `border border-${standardColor} bg-${standardColor} text-${finalTextColor} hover:bg-${secondaryColor} focus:bg-${secondaryColor}`;
+      case "outline":
+        finalTextColor = textColor || standardColor;
+        backgroundColor = theme === "light" ? "white" : "gray-darkest";
+        return `border border-${standardColor} bg-${backgroundColor} text-${finalTextColor}`;
+      case "clear":
+        return `border border-${standardColor} bg-transparent text-${finalTextColor}`;
+      case "inline":
+        return `text-${finalTextColor} hover:text-${secondaryColor} focus:text-${secondaryColor}`;
+      case "transparent":
+        return `text-${finalTextColor} hover:text-${secondaryColor} focus:text-${secondaryColor}`;
+    }
+  }
+
+  private get horizontalPaddingFactor() {
+    if (this.appearance === "inline") {
+      return 0;
+    }
+    switch (this.scale) {
+      case "xs":
+        return 2;
+      case "s":
+        return 4;
+      case "m":
+        return 6;
+      case "l":
+        return 8;
+      case "xl":
+        return 10;
+    }
+  }
+
+  getPaddingClasses() {
+    if (this.appearance === "inline") {
+      return "";
+    }
+    switch (this.scale) {
+      case "xs":
+        return `px-2 py-1`;
+      case "s":
+        return `px-4 py-2`;
+      case "m":
+        return `px-6 py-3`;
+      case "l":
+        return `px-8 py-4`;
+      case "xl":
+        return `px-10 py-5`;
+    }
+  }
+
+  getIconPaddingClass() {
+    if (this.appearance === "inline") {
+      return "";
+    }
+    switch (this.scale) {
+      case "xs":
+        return `px-2 py-1`;
+      case "s":
+        return `px-4 py-2`;
+      case "m":
+        return `px-6 py-3`;
+      case "l":
+        return `px-8 py-4`;
+      case "xl":
+        return `px-10 py-5`;
+    }
+  }
+
   render() {
+    const horizontalPaddingFactor = this.horizontalPaddingFactor;
+    const verticalPaddingFactor = horizontalPaddingFactor / 2;
+    const iconMargin = verticalPaddingFactor;
+
     const attributes = this.getAttributes();
     const Tag = this.childElType;
     const role = this.childElType === "span" ? "button" : null;
@@ -156,9 +395,10 @@ export class CalciteButton {
         scale={iconScale}
       />
     );
-
+    const x = "bg-red";
+    const y = `bg-red`;
     return (
-      <Host hasText={this.hasText}>
+      <Host hasText={this.hasText} class={`${x}`}>
         <Tag
           {...attributes}
           role={role}
@@ -166,6 +406,7 @@ export class CalciteButton {
           onClick={(e) => this.handleClick(e)}
           disabled={this.disabled}
           ref={(el) => (this.childEl = el)}
+          class="bg-red"
         >
           {this.loading ? loader : null}
           {this.icon && this.iconPosition === "start" ? iconEl : null}

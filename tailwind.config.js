@@ -234,7 +234,7 @@ module.exports = {
   },
 
   variants: {
-    borderWidth: [ 'responsive', 'rtl' ],
+    borderWidth: [ 'responsive', 'rtl', 'hover', 'focus' ],
     fontStyle: [ 'responsive', 'hover', 'focus' ],
     fontWeight: [ 'responsive', 'hover' ],
     inset: [ 'responsive', 'rtl' ],
