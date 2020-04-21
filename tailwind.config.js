@@ -234,6 +234,8 @@ module.exports = {
   },
 
   variants: {
+    backgroundColor: [ 'responsive', 'rtl', 'hover', 'focus' ],
+    borderStyle: [ 'responsive', 'active' ],
     borderWidth: [ 'responsive', 'rtl', 'hover', 'focus' ],
     fontStyle: [ 'responsive', 'hover', 'focus' ],
     fontWeight: [ 'responsive', 'hover' ],
