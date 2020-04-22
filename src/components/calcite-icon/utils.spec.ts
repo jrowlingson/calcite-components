@@ -24,22 +24,18 @@ describe("utils", () => {
       const smallFilledBanana: FetchIconProps = {
         icon: "banana",
         scale: "s",
-        filled: false
       };
       const mediumNonFilledBanana: FetchIconProps = {
         icon: "banana",
         scale: "m",
-        filled: false
       };
       const mediumFilledBanana: FetchIconProps = {
         icon: "banana",
         scale: "m",
-        filled: true
       };
       const mediumFilledCamera: FetchIconProps = {
         icon: "camera",
         scale: "m",
-        filled: true
       };
 
       await fetchIcon(smallFilledBanana);
