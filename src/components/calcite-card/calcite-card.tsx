@@ -55,7 +55,7 @@ export class CalciteCard {
   @Prop({ reflect: true, mutable: true }) selectable: boolean = false;
 
   /**  The theme of the card.*/
-  @Prop({ reflect: true, mutable: true }) theme: "light" | "dark";
+  @Prop({ reflect: true, mutable: true }) theme: "light" | "dark" = "light";
 
   //--------------------------------------------------------------------------
   //
@@ -85,11 +85,13 @@ export class CalciteCard {
           <section class={{ [CSS.container]: true }} aria-busy={this.loading}>
             {this.selectable ? this.renderCheckbox() : null}
             {this.renderThumbnail()}
-            {this.renderHeader()}
-            <div class="card-content">
-              <slot />
+            <div class="px-4 pt-4">
+              {this.renderHeader()}
+              <div class="card-content">
+                <slot />
+              </div>
+              {this.renderFooter()}
             </div>
-            {this.renderFooter()}
           </section>
         </div>
       </Host>
