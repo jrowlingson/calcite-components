@@ -118,12 +118,8 @@ export class CalciteCheckbox {
       >
         <svg
           class={c(`check-svg border block border-gray-light[er] <w-5 h-5> lg<w-6 h-6> sm<h-4 w-4>
-          ${this.disabled ? " opacity-50 bg-gray-dark " : ""}
-          ${
-            this.checked || this.indeterminate
-              ? "bg-blue[-light] border-blue[-light]"
-              : "bg-[white transparent]"
-          }`)}
+          ${this.disabled ? ' opacity-50 bg-gray-dark ' : ''}
+          ${this.checked || this.indeterminate ? 'bg-blue[-light] border-blue[-light]' : 'bg-[white transparent]'}`)}
           viewBox="0 0 16 16"
         >
           <path d={this.getPath()} fill="white" />
