@@ -1,23 +1,38 @@
 :host {
-  max-width: 100%;
+  &:host([theme="light"]) {
+    --card-background-color: theme("colors.white");
+    --card-border-color: theme("colors.gray.lighter");
+    --card-selected-border-color: theme("colors.blue.default");
+    --card-title-color: theme("colors.gray.dark");
+    --card-text-color: theme("colors.gray.default");
+  }
+  &:host([theme="dark"]) {
+    --card-background-color: theme("colors.gray.darkest");
+    --card-border-color: theme("colors.gray.default");
+    --card-selected-border-color: theme("colors.blue.light");
+    --card-title-color: theme("colors.white");
+    --card-text-color: theme("colors.gray.default");
+  }
+  max-width: theme("maxWidth.full");
   & .calcite-card-container {
+    height: theme("height.full");
     display: flex;
-    height: 100%;
     flex-direction: column;
     justify-content: space-between;
-    background-color: var(--calcite-ui-foreground-1);
-    transition: $transition;
     position: relative;
-    border: 1px solid var(--calcite-ui-border-2);
-    color: var(--calcite-ui-text-3);
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    background-color: var(--card-background-color);
+    transition-property: theme("transitionProperty.default");
+    transition-duration: theme("transitionDuration.150");
+    font-size: theme("fontSize.sm");
+    border: 1px solid var(--card-border-color);
+    color: var(--card-text-color);
     &:hover {
-      box-shadow: $shadow-1--hover;
-      z-index: 1;
+      box-shadow: theme("boxShadow.lg");
+      z-index: theme("zIndex.10");
     }
     &:active {
-      box-shadow: $shadow-1--press;
-      z-index: 1;
+      box-shadow: theme("boxShadow.md");
+      z-index: theme("zIndex.10");
     }
   }
 }
@@ -41,7 +56,7 @@
 
 :host .header,
 :host .footer {
-  padding: $baseline/2;
+  margin-bottom: theme("spacing.4");
   display: flex;
 }
 
@@ -50,56 +65,50 @@
 }
 
 :host .footer {
-  padding: $baseline/2;
+  margin-bottom: theme("spacing.4");
   flex-direction: row;
   align-content: space-between;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 :host .card-content {
-  padding: 0 $baseline/2;
-  color: var(--calcite-ui-text-3);
-  @include font-size(-2);
+  margin-bottom: theme("spacing.4");
 }
 
 // selectable and selected styles
 :host([selectable]) .calcite-card-container:active {
-  box-shadow: $shadow-1--press;
+  box-shadow: theme("boxShadow.md");
 }
 
 :host([selected]) .calcite-card-container {
-  border-color: var(--calcite-ui-blue-1);
+  border-color: var(--card-selected-border-color);
 }
 
 // slotted content
 @include slotted("title", "*") {
-  font-weight: 500;
-  color: var(--calcite-ui-text-1);
-  margin: 0;
-  @include font-size(-1);
+  font-size: theme("fontSize.base");
+  font-weight: theme("fontWeight.medium");
+  color: var(--card-title-color);
+  margin: theme("spacing.0");
 }
 
 @include slotted("subtitle", "*") {
-  font-weight: 400;
-  color: var(--calcite-ui-text-2);
-  margin: 0;
-  margin-top: $baseline/4;
-  @include font-size(-2);
+  font-weight: theme("fontWeight.medium");
+  margin: theme("spacing.0");
+  margin-top: theme("spacing.2");
 }
 
 @include slotted("thumbnail", "img") {
-  max-width: 100%;
-  min-width: 100%;
+  max-width: theme("maxWidth.full");
+  min-width: theme("minWidth.full");
 }
 
 @include slotted("footer-leading", "*") {
   margin-inline-end: auto;
   align-self: center;
-  @include font-size(-2);
 }
 @include slotted("footer-trailing", "*") {
   align-self: center;
-  @include font-size(-2);
 }
 
 :host .thumbnail-wrapper {
@@ -108,13 +117,13 @@
 
 :host .checkbox-wrapper {
   position: absolute;
-  top: $baseline/4;
-  right: $baseline/4;
-  margin: 0;
-  padding: 0;
+  top: theme("spacing.4");
+  right: theme("spacing.4");
+  margin: theme("spacing.0");
+  padding: theme("spacing.0");
 }
 
 :host([dir="rtl"]) .checkbox-wrapper {
-  left: $baseline/4;
+  left: theme("spacing.4");
   right: auto;
 }
