@@ -256,7 +256,7 @@ export class CalciteButton {
 
   private get buttonClass() {
     const commonClasses =
-      "relative cursor-pointer transition duration-150 focus:outline-none focus:shadow-outline";
+      "font-sans relative cursor-pointer transition duration-150 focus:outline-none focus:shadow-outline";
     return [
       commonClasses,
       this.roundedClass,
@@ -283,7 +283,7 @@ export class CalciteButton {
     // whitelist all possible classes used in the component
     return (
       <calcite-icon
-        class={`w-full h-full flex items-center justify-center absolute relative inset-0 box-border no-underline leading-none fill-current opacity-0 opacity-50 pointer-events-none cursor-pointer m-0 rounded-full transition duration-150 focus:outline-none focus:shadow-outline bg-transparent border-transparent hover:underline border
+        class={`font-sans w-full h-full flex items-center justify-center absolute relative inset-0 box-border no-underline leading-none fill-current opacity-0 opacity-50 pointer-events-none cursor-pointer m-0 rounded-full transition duration-150 focus:outline-none focus:shadow-outline bg-transparent border-transparent hover:underline border
     border-red hover:border-red focus:border-red bg-red hover:bg-red focus:bg-red text-red hover:text-red focus:text-red
     border-red-light hover:border-red-light focus:border-red-light bg-red-light hover:bg-red-light focus:bg-red-light text-red-light hover:text-red-light focus:text-red-light
     border-blue hover:border-blue focus:border-blue bg-blue hover:bg-blue focus:bg-blue text-blue hover:text-blue focus:text-blue
