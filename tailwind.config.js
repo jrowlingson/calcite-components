@@ -189,20 +189,18 @@ module.exports = {
     },
 
     fontSize: {
-      '2xs': '.702rem',    // 11.23px
-      'xs': '.79rem',      // 12.64px
-      'sm': '.889rem',     // 14.25px
-      'base': '1rem',      // 16px
-      'lg': '1.125rem',    // 18px
-      'xl': '1.266rem',    // 20.26px
-      '2xl': '1.424rem',   // 22.78px
-      '3xl': '1.602rem',   // 25.63px
-      '4xl': '1.802rem',   // 28.83px
-      '5xl': '2.027rem',   // 32.43px
-      '6xl': '2.280rem',   // 36.48px
-      'display-1': '3.247rem',    // 51.95px
-      'display-1-md': '3.653rem', // 58.44px
-      'display-1-lg': '4.109rem', // 65.74px
+      '2xs': '.625rem',       // 10px
+      'xs': '.75rem',         // 12px
+      'sm': '.875rem',        // 14px
+      'base': '1rem',         // 16px
+      'lg': '1.125rem',       // 18px
+      'xl': '1.25rem',        // 20px
+      '2xl': '1.625rem',      // 26px
+      '3xl': '2rem',          // 32px
+      '4xl': '2.5rem',        // 40px
+      'display-sm': '3rem',   // 48px
+      'display-md': '3.5rem', // 56px
+      'display-lg': '4rem',   // 64px
     },
 
     borderColor: theme => ({
@@ -234,20 +232,25 @@ module.exports = {
   },
 
   variants: {
-    backgroundColor: [ 'responsive', 'rtl', 'hover', 'focus' ],
+    backgroundColor: [ 'dark', 'responsive', 'rtl', 'hover', 'focus', 'active', 'hover-dark', 'focus-dark', 'active-dark' ],
+    borderRadius: [ 'rtl' ],
     borderStyle: [ 'responsive', 'active' ],
     borderWidth: [ 'responsive', 'rtl', 'hover', 'focus' ],
+    fontSize: [ 'responsive', 'rtl', 'scaleXs', 'scaleS', 'scaleM', 'scaleL', 'scaleXl' ],
     fontStyle: [ 'responsive', 'hover', 'focus' ],
     fontWeight: [ 'responsive', 'hover' ],
     inset: [ 'responsive', 'rtl' ],
-    margin: [ 'responsive', 'rtl' ],
+    margin: [ 'responsive', 'rtl', 'rtl-scaleXs', 'rtl-scaleS', 'rtl-scaleM', 'rtl-scaleL', 'rtl-scaleXl',
+      'scaleXs', 'scaleS', 'scaleM', 'scaleL', 'scaleXl' ],
     objectFit: [],
     opacity: [ 'responsive', 'disabled' ],
     outline: [ 'focus' ],
-    padding: [ 'responsive', 'rtl' ],
+    padding: [ 'responsive', 'rtl', 'rtl-scaleXs', 'rtl-scaleS', 'rtl-scaleM', 'rtl-scaleL', 'rtl-scaleXl',
+      'scaleXs', 'scaleS', 'scaleM', 'scaleL', 'scaleXl' ],
     position: [ 'responsive', 'rtl' ],
     stroke: [],
     textAlign: [ 'responsive', 'rtl' ],
+    textColor: [ 'dark', 'hover', 'focus' ]
   },
 
   corePlugins: {
@@ -270,10 +273,43 @@ module.exports = {
 
   plugins: [
     function({ addVariant, e }) {
+      const SCALE_VARIANTS = [
+        { name: 'scaleXs', size: 'xs' },
+        { name: 'scaleS', size: 's' },
+        { name: 'scaleM', size: 'm' },
+        { name: 'scaleL', size: 'l' },
+        { name: 'scaleXl', size: 'xl' }
+      ]
+      const PSEUDO_SELECTORS = [ 'hover', 'focus', 'active' ]
       addVariant('rtl', ({ modifySelectors, separator }) => {
         modifySelectors(({ className }) => {
-          return `[dir="rtl"] .${e(`rtl${separator}${className}`)}`
+          return `:host([dir="rtl"]) .${e(`rtl${separator}${className}`)}`
         })
+      })
+      addVariant('dark', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `:host([theme="dark"]) .${e(`dark${separator}${className}`)}`
+        })
+      })
+      PSEUDO_SELECTORS.forEach(pseudoSelector => {
+        addVariant(`${pseudoSelector}-dark`, ({ modifySelectors, separator }) => {
+          modifySelectors(({ className }) => {
+            return `:host([theme="dark"]) .${e(`${pseudoSelector}-dark${separator}${className}`)}:${pseudoSelector}`
+          })
+        })
+      })
+      SCALE_VARIANTS.forEach(variant => {
+        const { name, size } = variant
+        addVariant(name, ({ modifySelectors, separator }) => {
+          modifySelectors(({ className }) => {
+            return `:host([scale="${size}"]) .${e(`${name}${separator}${className}`)}`
+          })
+        })
+        addVariant(`rtl-${name}`, ({ modifySelectors, separator }) => {
+          modifySelectors(({ className }) => {
+            return `:host([dir="rtl"][scale="${size}"]) .${e(`rtl-${name}${separator}${className}`)}`;
+          });
+        });
       })
     },
   ],

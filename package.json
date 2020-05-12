@@ -42,7 +42,7 @@
   "dependencies": {
     "@a11y/focus-trap": "git+https://github.com/patrickarlt/focus-trap.git#conditional-define-build",
     "@popperjs/core": "~2.1.1",
-    "rollup-plugin-tailwind": "https://github.com/jrowlingson/rollup-plugin-tailwind.git#be71f8e"
+    "rollup-plugin-tailwind": "https://github.com/jrowlingson/rollup-plugin-tailwind.git#c92524c"
   },
   "devDependencies": {
     "@esri/calcite-base": "^1.2.0",
