@@ -8,6 +8,8 @@ import {
   Build,
   State,
 } from "@stencil/core";
+import cn from "classnames";
+import { css } from "../../utils/tailwind";
 
 import { getElementDir } from "../../utils/dom";
 
@@ -126,6 +128,7 @@ export class CalciteButton {
   }
 
   render() {
+    const c = css.bind(this);
     const dir = getElementDir(this.el);
     const attributes = this.getAttributes();
     const Tag = this.childElType;
@@ -145,7 +148,9 @@ export class CalciteButton {
 
     const iconEl = (
       <calcite-icon
-        class="calcite-button--icon"
+        class={`${
+          this.hasText ? (this.iconPosition === "end" ? "ml-2" : "mr-2") : ""
+        }`}
         icon={this.icon}
         scale={iconScale}
       />
@@ -155,6 +160,27 @@ export class CalciteButton {
       <Host hasText={this.hasText} dir={dir}>
         <Tag
           {...attributes}
+          class={c(`border disabled:opacity-50 disabled:pointer-events-none
+            ${cn({
+              "<px-4 py-3 text-sm> lg<px-6 py-4 text-lg> sm<px-3 py-2 text-xs>": this
+                .hasText,
+              "p-4": !this.hasText,
+              "shadow hover:shadow-md": this.floating,
+              "rounded-full": this.round,
+              "border-blue bg-blue text-white hover:bg-blue-light hover:border-blue-light":
+                this.isSolid && this.isBlue,
+              "border-red bg-red text-white hover:bg-red-light hover:border-red-light":
+                this.isSolid && this.isRed,
+              "border-gray-lighter bg-gray-lighter text-black hover:bg-gray-light hover:border-gray-light":
+                this.isSolid && this.isLight,
+              "border-gray-darker bg-gray-darker text-white hover:bg-gray-darkest hover:border-gray-darkest":
+                this.isSolid && this.isDark,
+              "border-blue text-blue": this.isOutlined && this.isBlue,
+              "border-red text-red": this.isOutlined && this.isRed,
+              "border-black text-black": this.isOutlined && this.isDark,
+              "border-gray-light text-black": this.isOutlined && this.isLight,
+              "border-transparent bg-transparent": this.isTransparent,
+            })} `)}
           onClick={(e) => this.handleClick(e)}
           disabled={this.disabled}
           ref={(el) => (this.childEl = el)}
@@ -232,6 +258,34 @@ export class CalciteButton {
     return Array.from(this.el.attributes)
       .filter((a) => a && !props.includes(a.name))
       .reduce((acc, { name, value }) => ({ ...acc, [name]: value }), {});
+  }
+
+  private get isOutlined() {
+    return this.appearance === "outline";
+  }
+
+  private get isSolid() {
+    return this.appearance === "solid";
+  }
+
+  private get isTransparent() {
+    return this.appearance === "transparent";
+  }
+
+  private get isBlue() {
+    return this.color === "blue";
+  }
+
+  private get isRed() {
+    return this.color === "red";
+  }
+
+  private get isDark() {
+    return this.color === "dark";
+  }
+
+  private get isLight() {
+    return this.color === "light";
   }
 
   //--------------------------------------------------------------------------

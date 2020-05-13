@@ -1,3 +1,4 @@
+import tailwind from "rollup-plugin-tailwind";
 import { Config } from "@stencil/core";
 import { sass } from "@stencil/sass";
 
@@ -71,6 +72,7 @@ export const config: Config = {
     sass({
       injectGlobalPaths: ["src/assets/styles/includes.scss"],
     }),
+    tailwind("./tailwind.config.js"),
   ],
   testing: {
     moduleNameMapper: {
