@@ -162,25 +162,19 @@ export class CalciteButton {
           {...attributes}
           class={c(`border disabled:opacity-50 disabled:pointer-events-none
             ${cn({
-              "<px-4 py-3 text-sm> lg<px-6 py-4 text-lg> sm<px-3 py-2 text-xs>": this
-                .hasText,
+              "<px-4 py-3 text-sm> lg<px-6 py-4 text-lg> sm<px-3 py-2 text-xs>": this.hasText,
               "p-4": !this.hasText,
               "shadow hover:shadow-md": this.floating,
               "rounded-full": this.round,
-              "border-blue bg-blue text-white hover:bg-blue-light hover:border-blue-light":
-                this.isSolid && this.isBlue,
-              "border-red bg-red text-white hover:bg-red-light hover:border-red-light":
-                this.isSolid && this.isRed,
-              "border-gray-lighter bg-gray-lighter text-black hover:bg-gray-light hover:border-gray-light":
-                this.isSolid && this.isLight,
-              "border-gray-darker bg-gray-darker text-white hover:bg-gray-darkest hover:border-gray-darkest":
-                this.isSolid && this.isDark,
+              "border-blue bg-blue text-white hover:bg-blue-light hover:border-blue-light": this.isSolid && this.isBlue,
+              "border-red bg-red text-white hover:bg-red-light hover:border-red-light": this.isSolid && this.isRed,
+              "border-gray-lighter bg-gray-lighter text-black hover:bg-gray-light hover:border-gray-light": this.isSolid && this.isLight,
+              "border-gray-darker bg-gray-darker text-white hover:bg-gray-darkest hover:border-gray-darkest": this.isSolid && this.isDark,
               "border-blue text-blue": this.isOutlined && this.isBlue,
               "border-red text-red": this.isOutlined && this.isRed,
               "border-black text-black": this.isOutlined && this.isDark,
               "border-gray-light text-black": this.isOutlined && this.isLight,
-              "border-transparent bg-transparent": this.isTransparent,
-            })} `)}
+              "border-transparent bg-transparent": this.isTransparent, })} `)}
           onClick={(e) => this.handleClick(e)}
           disabled={this.disabled}
           ref={(el) => (this.childEl = el)}
