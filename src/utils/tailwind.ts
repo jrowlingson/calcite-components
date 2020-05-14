@@ -1,5 +1,4 @@
 export function css(classes: string): RegExpMatchArray | string | null {
-  console.log(classes);
   return _buildSizeClasses(classes, this.scale);
   // return _buildThemeClasses(_buildSizeClasses(classes, this.size), this.theme)
 }
@@ -7,7 +6,7 @@ export function css(classes: string): RegExpMatchArray | string | null {
 function _buildSizeClasses(classes: string, size: string): string {
   return classes
     .replace(/\w*<.*?>/g, "")
-    .concat(_parseSizeClasses(classes, size));
+    .concat(' ', _parseSizeClasses(classes, size));
 }
 
 function _buildThemeClasses(classes: string, theme: string): string {
@@ -38,12 +37,11 @@ function _parseSizeClasses(classes: string, size: string): string | null {
   let match;
   if (size === "s") {
     match = new RegExp(/sm<(.*?)>/).exec(classes);
-    // } else if (size === 'm') {
-    //   return (new RegExp(/md<(.*?)>/)).exec(classes)[1]
   } else if (size === "l") {
     match = new RegExp(/lg<(.*?)>/).exec(classes);
   } else {
-    match = classes.match(/[^\w]<(.*?)>/);
+    match = classes.match(/(^|[^\w])<(.*?)>/);
+    return match ? match[2] : "";
   }
   return match ? match[1] : "";
 }

@@ -8,9 +8,7 @@ import {
   Build,
   State,
 } from "@stencil/core";
-import cn from "classnames";
-import { css } from "../../utils/tailwind";
-
+import { Styles } from "../../utils/styles";
 import { getElementDir } from "../../utils/dom";
 
 @Component({
@@ -128,7 +126,6 @@ export class CalciteButton {
   }
 
   render() {
-    const c = css.bind(this);
     const dir = getElementDir(this.el);
     const attributes = this.getAttributes();
     const Tag = this.childElType;
@@ -158,21 +155,7 @@ export class CalciteButton {
       <Host hasText={this.hasText} dir={dir}>
         <Tag
           {...attributes}
-          class={c(`border disabled:opacity-50 disabled:pointer-events-none
-            ${cn({
-              "<px-4 py-3 text-sm> lg<px-6 py-4 text-lg> sm<px-3 py-2 text-xs>": this.hasText,
-              "p-4": !this.hasText,
-              "shadow hover:shadow-md": this.floating,
-              "rounded-full": this.round,
-              "border-blue bg-blue text-white hover:bg-blue-light hover:border-blue-light": this.isSolid && this.isBlue,
-              "border-red bg-red text-white hover:bg-red-light hover:border-red-light": this.isSolid && this.isRed,
-              "border-gray-lighter bg-gray-lighter text-black hover:bg-gray-light hover:border-gray-light": this.isSolid && this.isLight,
-              "border-gray-darker bg-gray-darker text-white hover:bg-gray-darkest hover:border-gray-darkest": this.isSolid && this.isDark,
-              "border-blue text-blue": this.isOutlined && this.isBlue,
-              "border-red text-red": this.isOutlined && this.isRed,
-              "border-black text-black": this.isOutlined && this.isDark,
-              "border-gray-light text-black": this.isOutlined && this.isLight,
-              "border-transparent bg-transparent": this.isTransparent, })} `)}
+          class={this.classNames()}
           onClick={(e) => this.handleClick(e)}
           disabled={this.disabled}
           ref={(el) => (this.childEl = el)}
@@ -215,6 +198,27 @@ export class CalciteButton {
   /** the node type of the rendered child element */
   private childElType?: "a" | "button" = "button";
 
+  @Styles()
+  private classNames = () => ({
+    '<px-4 py-3 text-sm> lg<px-6 py-4 text-lg> sm<px-3 py-2 text-xs>': this.hasText,
+    'p-4': !this.hasText,
+    'shadow hover:shadow-md': this.floating,
+    'rounded-full': this.round,
+    'border-blue bg-blue text-white': this.solid && this.blue,
+    'border-red bg-red text-white': this.solid && this.red,
+    'border-gray-lighter bg-gray-lighter text-black': this.solid && this.light,
+    'border-gray-darker bg-gray-darker text-white': this.solid && this.dark,
+    'border-blue text-blue': this.outlined && this.blue,
+    'border-red text-red': this.outlined && this.red,
+    'border-black text-black': this.outlined && this.dark,
+    'border-gray-light text-black': this.outlined && this.light,
+    'border-transparent bg-transparent': this.transparent,
+    'hover:bg-blue-light hover:border-blue-light': this.solid && this.blue,
+    'hover:bg-red-light hover:border-red-light': this.solid && this.red,
+    'hover:bg-gray-light hover:border-gray-light': this.solid && this.light,
+    'hover:bg-gray-darkest hover:border-gray-darkest': this.solid && this.dark
+  })
+
   /** determine if there is slotted text for styling purposes */
   @State() private hasText?: boolean = false;
 
@@ -252,31 +256,31 @@ export class CalciteButton {
       .reduce((acc, { name, value }) => ({ ...acc, [name]: value }), {});
   }
 
-  private get isOutlined() {
+  private get outlined() {
     return this.appearance === "outline";
   }
 
-  private get isSolid() {
+  private get solid() {
     return this.appearance === "solid";
   }
 
-  private get isTransparent() {
+  private get transparent() {
     return this.appearance === "transparent";
   }
 
-  private get isBlue() {
+  private get blue() {
     return this.color === "blue";
   }
 
-  private get isRed() {
+  private get red() {
     return this.color === "red";
   }
 
-  private get isDark() {
+  private get dark() {
     return this.color === "dark";
   }
 
-  private get isLight() {
+  private get light() {
     return this.color === "light";
   }
 
