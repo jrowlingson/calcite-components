@@ -233,18 +233,19 @@ module.exports = {
   },
 
   variants: {
-    borderWidth: [ 'responsive', 'rtl' ],
+    borderRadius: [ 'responsive', 'mirror' ],
+    borderWidth: [ 'responsive', 'rtl', 'mirror' ],
     fontStyle: [ 'responsive', 'hover', 'focus' ],
     fontWeight: [ 'responsive', 'hover' ],
-    inset: [ 'responsive', 'rtl' ],
-    margin: [ 'responsive', 'rtl' ],
+    inset: [ 'responsive', 'rtl', 'mirror' ],
+    margin: [ 'responsive', 'rtl', 'mirror' ],
     objectFit: [],
     opacity: [ 'responsive', 'disabled' ],
     outline: [ 'focus' ],
-    padding: [ 'responsive', 'rtl' ],
+    padding: [ 'responsive', 'rtl', 'mirror' ],
     position: [ 'responsive', 'rtl' ],
     stroke: [],
-    textAlign: [ 'responsive', 'rtl' ],
+    textAlign: [ 'responsive', 'rtl', 'mirror' ],
   },
 
   corePlugins: {
@@ -269,8 +270,44 @@ module.exports = {
     function({ addVariant, e }) {
       addVariant('rtl', ({ modifySelectors, separator }) => {
         modifySelectors(({ className }) => {
-          return `[dir="rtl"] .${e(`rtl${separator}${className}`)}`
+          return `:host([dir="rtl"]) .${e(`rtl${separator}${className}`)}`
         })
+      })
+      addVariant('mirror', ({ container, separator }) => {
+        const newRules = []
+        container.walkRules(rule => {
+          const className = rule.selector.slice(1)
+          const reversableMarginOrPadding = /-?(m|p)(l|r)-(px|auto|[0-9]+)/.test(className)
+          const reversableBorderRadius = /rounded-(l|r|tl|tr|bl|br)(-[a-z]+)?/.test(className)
+          const reversableBorderWidth = /border-(l|r)(-[0-9])?/.test(className)
+          const reversablePosition = /(right|left)-(0|auto)/.test(className)
+          const reversableProperty = reversableMarginOrPadding || reversableBorderRadius || reversableBorderWidth || reversablePosition
+
+          const reversableFloat = /float-(right|left)/.test(className)
+          const reversableClear = /clear-(right|left)/.test(className)
+          const reversableTextAlign = /text-(right|left)/.test(className)
+          const reversableBackgroundPosition = /bg-(right|left)(-(bottom|top))?/.test(className)
+          const reversableValue = reversableFloat || reversableClear || reversableTextAlign || reversableBackgroundPosition
+
+          if (reversableProperty || reversableValue) {
+            rule.selector = `:host([dir="ltr"]) .${e(`mirror${separator}${className}`)}`
+            const clone = rule.clone({ selector: `:host([dir="rtl"]) .${e(`mirror${separator}${className}`)}` })
+            clone.each(node => {
+              if (reversableProperty) {
+                node.prop = node.prop.includes('left')
+                  ? node.prop.replace('left', 'right')
+                  : node.prop.replace('right', 'left')
+              }
+              if (reversableValue) {
+                node.value = node.value.includes('left')
+                  ? node.value.replace('left', 'right')
+                  : node.value.replace('right', 'left')
+              }
+            })
+            newRules.push(clone)
+          }
+        })
+        container.append(newRules)
       })
     },
   ],
