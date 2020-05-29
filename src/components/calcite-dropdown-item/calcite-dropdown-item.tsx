@@ -9,19 +9,10 @@ import {
   Method,
   Prop,
 } from "@stencil/core";
-import {
-  UP,
-  DOWN,
-  TAB,
-  ENTER,
-  ESCAPE,
-  HOME,
-  END,
-  SPACE,
-} from "../../utils/keys";
 import { getElementDir, getElementProp } from "../../utils/dom";
 import { guid } from "../../utils/guid";
 import { ItemRegistration } from "../../interfaces/Dropdown";
+import { getKey } from "../../utils/key";
 
 @Component({
   tag: "calcite-dropdown-item",
@@ -123,7 +114,9 @@ export class CalciteDropdownItem {
     const contentEl = !this.href ? (
       slottedContent
     ) : (
-      <a {...attributes}>{slottedContent}</a>
+      <a {...attributes} ref={(el) => (this.childLink = el)}>
+        {slottedContent}
+      </a>
     );
     return (
       <Host
@@ -157,20 +150,26 @@ export class CalciteDropdownItem {
   }
 
   @Listen("keydown") keyDownHandler(e) {
-    switch (e.keyCode) {
-      case SPACE:
-      case ENTER:
+    switch (getKey(e.key)) {
+      case " ":
         this.emitRequestedItem();
-        if (e.path && e.path[0].nodeName === "A") e.click();
+        if (this.href) {
+          e.preventDefault();
+          this.childLink.click();
+        }
         break;
-      case ESCAPE:
+      case "Enter":
+        this.emitRequestedItem();
+        if (this.href) this.childLink.click();
+        break;
+      case "Escape":
         this.closeCalciteDropdown.emit();
         break;
-      case TAB:
-      case UP:
-      case DOWN:
-      case HOME:
-      case END:
+      case "Tab":
+      case "ArrowUp":
+      case "ArrowDown":
+      case "Home":
+      case "End":
         this.calciteDropdownItemKeyEvent.emit({ item: e });
         break;
     }
@@ -210,6 +209,9 @@ export class CalciteDropdownItem {
 
   /** what selection mode is the parent dropdown group in */
   private selectionMode = getElementProp(this.el, "selection-mode", "single");
+
+  /** if href is requested, track the rendered child link*/
+  private childLink: HTMLAnchorElement;
 
   //--------------------------------------------------------------------------
   //

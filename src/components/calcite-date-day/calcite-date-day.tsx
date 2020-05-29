@@ -8,7 +8,7 @@ import {
   Listen,
   h,
 } from "@stencil/core";
-import { SPACE, ENTER } from "../../utils/keys";
+import { getKey } from "../../utils/key";
 
 @Component({
   tag: "calcite-date-day",
@@ -42,6 +42,8 @@ export class CalciteDateDay {
   @Prop({ reflect: true }) active: boolean = false;
   /** Locale to display the day in */
   @Prop() locale: string;
+  /** specify the scale of the date picker */
+  @Prop({ reflect: true }) scale: "s" | "m" | "l";
 
   //--------------------------------------------------------------------------
   //
@@ -54,7 +56,8 @@ export class CalciteDateDay {
   }
 
   @Listen("keydown") keyDownHandler(e: KeyboardEvent) {
-    if (e.keyCode === SPACE || e.keyCode === ENTER) {
+    const key = getKey(e.key);
+    if (key === " " || key === "Enter") {
       !this.disabled && this.calciteDaySelect.emit();
     }
   }
@@ -79,7 +82,9 @@ export class CalciteDateDay {
     const intl = new Intl.NumberFormat(this.locale);
     return (
       <Host role="gridcell" tabindex={this.selected || this.active ? 0 : -1}>
-        <span class="day">{intl.format(this.day)}</span>
+        <span class="day">
+          <span class="text">{intl.format(this.day)}</span>
+        </span>
       </Host>
     );
   }

@@ -1,3 +1,8 @@
+//ie11 fixes
+:host-context([theme="dark"]) {
+  @include calcite-theme-dark();
+}
+
 // scale variables
 :host([scale="s"]) {
   --calcite-notice-spacing-token-small: #{$baseline/2};
@@ -8,7 +13,7 @@
   @include slotted("notice-message", "div") {
     @include font-size(-3);
   }
-  ::slotted(calcite-button) {
+  ::slotted(calcite-link) {
     @include font-size(-3);
   }
 }
@@ -22,7 +27,7 @@
   @include slotted("notice-message", "div") {
     @include font-size(-2);
   }
-  ::slotted(calcite-button) {
+  ::slotted(calcite-link) {
     @include font-size(-2);
   }
 }
@@ -36,7 +41,7 @@
   @include slotted("notice-message", "div") {
     @include font-size(-1);
   }
-  ::slotted(calcite-button) {
+  ::slotted(calcite-link) {
     @include font-size(-1);
   }
 }
@@ -105,7 +110,7 @@
 
 :host([dir="rtl"]) {
   @include slotted("notice-message", "div") {
-    margin-right: unset;
+    margin-right: 0;
     margin-left: var(--calcite-notice-spacing-token-small);
   }
 }
@@ -120,6 +125,8 @@
 
 .notice-content {
   @include notice-element-base;
+  display: flex;
+  flex-direction: column;
   flex: 1 1 auto;
   min-width: 0;
   word-wrap: break-word;
@@ -130,20 +137,23 @@
   &:first-of-type:not(:only-child) {
     padding-left: var(--calcite-notice-spacing-token-large);
   }
-  &:only-child {
-    padding: var(--calcite-notice-spacing-token-small);
+  &:only-of-type {
+    padding: var(--calcite-notice-spacing-token-small)
+      var(--calcite-notice-spacing-token-large);
   }
 }
 
-:host([dir="rtl"]) {
-  .notice-content {
-    padding: var(--calcite-notice-spacing-token-small) 0
-      var(--calcite-notice-spacing-token-small)
-      var(--calcite-notice-spacing-token-small);
+:host([dir="rtl"]) .notice-content {
+  padding: var(--calcite-notice-spacing-token-small) 0
+    var(--calcite-notice-spacing-token-small)
+    var(--calcite-notice-spacing-token-small);
 
-    &:first-of-type:not(:only-child) {
-      padding-right: var(--calcite-notice-spacing-token-large);
-    }
+  &:first-of-type:not(:only-child) {
+    padding-right: var(--calcite-notice-spacing-token-large);
+  }
+  &:only-of-type {
+    padding: var(--calcite-notice-spacing-token-small)
+      var(--calcite-notice-spacing-token-large);
   }
 }
 .notice-icon {

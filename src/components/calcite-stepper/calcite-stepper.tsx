@@ -10,8 +10,8 @@ import {
   Prop,
   Watch,
 } from "@stencil/core";
-import { UP, DOWN, HOME, END, LEFT, RIGHT } from "../../utils/keys";
 import { getElementDir } from "../../utils/dom";
+import { getKey } from "../../utils/key";
 
 @Component({
   tag: "calcite-stepper",
@@ -34,7 +34,7 @@ export class CalciteStepper {
   //--------------------------------------------------------------------------
 
   /** specify the theme of stepper, defaults to light */
-  @Prop({ mutable: true, reflect: true }) theme: "light" | "dark" = "light";
+  @Prop({ mutable: true, reflect: true }) theme: "light" | "dark";
 
   /** specify the scale of stepper, defaults to m */
   @Prop({ mutable: true, reflect: true }) scale: "s" | "m" | "l" = "m";
@@ -75,9 +75,6 @@ export class CalciteStepper {
     // validate props
     let layout = ["horizontal", "vertical"];
     if (!layout.includes(this.layout)) this.layout = "horizontal";
-
-    let theme = ["light", "dark"];
-    if (!theme.includes(this.theme)) this.theme = "light";
 
     let scale = ["s", "m", "l"];
     if (!scale.includes(this.scale)) this.scale = "m";
@@ -127,21 +124,21 @@ export class CalciteStepper {
     let isFirstItem = this.itemIndex(itemToFocus) === 0;
     let isLastItem =
       this.itemIndex(itemToFocus) === this.sortedItems.length - 1;
-    switch (item.keyCode) {
-      case DOWN:
-      case RIGHT:
+    switch (getKey(item.key)) {
+      case "ArrowDown":
+      case "ArrowRight":
         if (isLastItem) this.focusFirstItem();
         else this.focusNextItem(itemToFocus);
         break;
-      case UP:
-      case LEFT:
+      case "ArrowUp":
+      case "ArrowLeft":
         if (isFirstItem) this.focusLastItem();
         else this.focusPrevItem(itemToFocus);
         break;
-      case HOME:
+      case "Home":
         this.focusFirstItem();
         break;
-      case END:
+      case "End":
         this.focusLastItem();
         break;
     }

@@ -58,11 +58,11 @@ export class CalciteNotice {
   /** specify the scale of the notice, defaults to m */
   @Prop({ mutable: true, reflect: true }) scale: "s" | "m" | "l" = "m";
 
-  /** specify the scale of the button, defaults to m */
+  /** specify the width of the notice, defaults to m */
   @Prop({ mutable: true, reflect: true }) width: "auto" | "half" | "full" =
     "auto";
 
-  /** Select theme (light or dark) */
+  /** Optionally show a button the user can click to dismiss the notice */
   @Prop({ reflect: true, mutable: true }) dismissible?: boolean = false;
 
   /** If false, no icon will be shown in the notice */
@@ -88,8 +88,8 @@ export class CalciteNotice {
 
   componentDidLoad() {
     this.noticeLinkEl = this.el.querySelectorAll(
-      "calcite-button"
-    )[0] as HTMLCalciteButtonElement;
+      "calcite-link"
+    )[0] as HTMLCalciteLinkElement;
   }
 
   render() {
@@ -173,7 +173,7 @@ export class CalciteNotice {
   private closeButton?: HTMLElement;
 
   /** the notice link child element  */
-  private noticeLinkEl?: HTMLCalciteButtonElement;
+  private noticeLinkEl?: HTMLCalciteLinkElement;
 
   private iconDefaults = {
     green: "checkCircle",

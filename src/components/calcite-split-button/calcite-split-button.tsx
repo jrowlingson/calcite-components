@@ -8,7 +8,6 @@ import {
   Prop,
   Watch,
 } from "@stencil/core";
-import { Scale } from "../../interfaces/common";
 import { getElementDir } from "../../utils/dom";
 
 @Component({
@@ -27,7 +26,7 @@ export class CalciteButtonWithDropdown {
     | "red" = "blue";
 
   /** select theme (light or dark), defaults to light */
-  @Prop({ mutable: true, reflect: true }) theme: "light" | "dark" = "light";
+  @Prop({ mutable: true, reflect: true }) theme: "light" | "dark";
 
   /** specify the scale of the control, defaults to m */
   @Prop({ mutable: true, reflect: true }) scale: "s" | "m" | "l" = "m";
@@ -35,7 +34,8 @@ export class CalciteButtonWithDropdown {
   /** specify the icon used for the dropdown menu, defaults to chevron */
   @Prop({ mutable: true, reflect: true }) dropdownIconType:
     | "chevron"
-    | "caret" = "chevron";
+    | "caret"
+    | "ellipsis" = "chevron";
 
   /** text for primary action button  */
   @Prop({ reflect: true }) primaryText: string;
@@ -67,7 +67,7 @@ export class CalciteButtonWithDropdown {
 
   @Watch("scale")
   validateScale() {
-    let scale = ["xs", "s", "m", "l", "xl"];
+    let scale = ["s", "m", "l"];
     if (!scale.includes(this.scale)) this.scale = "m";
   }
 
@@ -79,7 +79,7 @@ export class CalciteButtonWithDropdown {
 
   @Watch("dropdownIconType")
   validateDropdownIconType() {
-    let dropdownIconType = ["chevron", "caret"];
+    let dropdownIconType = ["chevron", "caret", "ellipsis"];
     if (!dropdownIconType.includes(this.dropdownIconType))
       this.dropdownIconType = "chevron";
   }
@@ -97,9 +97,10 @@ export class CalciteButtonWithDropdown {
       <Host dir={dir}>
         <div class="split-button__container">
           <calcite-button
+            dir={dir}
             aria-label={this.primaryLabel}
             color={this.color}
-            scale={this.buttonScale}
+            scale={this.scale}
             loading={this.loading}
             icon={this.primaryIcon}
             iconPosition="start"
@@ -116,13 +117,14 @@ export class CalciteButtonWithDropdown {
             alignment="end"
             dir={dir}
             theme={this.theme}
-            scale={this.dropdownScale}
-            width={this.dropdownScale}
+            scale={this.scale}
+            width={this.scale}
           >
             <calcite-button
+              dir={dir}
               aria-label={this.dropdownLabel}
               slot="dropdown-trigger"
-              scale={this.buttonScale}
+              scale={this.scale}
               color={this.color}
               disabled={this.disabled}
               theme={this.theme}
@@ -139,24 +141,10 @@ export class CalciteButtonWithDropdown {
     this.calciteSplitButtonPrimaryClick.emit(e);
 
   private get dropdownIcon() {
-    return this.dropdownIconType === "chevron" ? "chevronDown" : "caretDown";
-  }
-
-  private get buttonScale() {
-    const scaleLookup: { [id in "s" | "m" | "l"]: Scale } = {
-      s: "xs",
-      m: "s",
-      l: "m",
-    };
-    return scaleLookup[this.scale];
-  }
-
-  private get dropdownScale() {
-    const scaleLookup: { [id in "s" | "m" | "l"]: "s" | "m" | "l" } = {
-      s: "s",
-      m: "s",
-      l: "m",
-    };
-    return scaleLookup[this.scale];
+    return this.dropdownIconType === "chevron"
+      ? "chevronDown"
+      : this.dropdownIconType === "caret"
+      ? "caretDown"
+      : "ellipsis";
   }
 }

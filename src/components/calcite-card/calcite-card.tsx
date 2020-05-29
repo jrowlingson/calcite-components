@@ -9,8 +9,8 @@ import {
   VNode,
 } from "@stencil/core";
 import { CSS, SLOTS } from "./resources";
-import { ENTER, SPACE } from "../../utils/keys";
 import { getElementDir } from "../../utils/dom";
+import { getKey } from "../../utils/key";
 
 /**
  * @slot thumbnail - A slot for adding a thumnail to the card.
@@ -114,9 +114,9 @@ export class CalciteCard {
   }
 
   private cardSelectKeyDown(e) {
-    switch (e.keyCode) {
-      case SPACE:
-      case ENTER:
+    switch (getKey(e.key)) {
+      case " ":
+      case "Enter":
         this.selectCard();
         e.preventDefault();
         break;
@@ -147,7 +147,10 @@ export class CalciteCard {
         onClick={() => this.cardSelectClick()}
         onKeyDown={(e) => this.cardSelectKeyDown(e)}
       >
-        <calcite-checkbox checked={this.selected}></calcite-checkbox>
+        <calcite-checkbox
+          theme={this.theme}
+          checked={this.selected}
+        ></calcite-checkbox>
       </div>
     );
   }

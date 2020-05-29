@@ -9,17 +9,16 @@
     <calcite-tree slot="children">
       <calcite-tree-item>
         <a href="#">Grandchild 1</a>
-      <calcite-tree-item>
+      </calcite-tree-item>
       <calcite-tree-item>
         <a href="#">Grandchild 2</a>
-      <calcite-tree-item>
-    <calcite-tree>
-  <calcite-tree-item>
+      </calcite-tree-item>
+    </calcite-tree>
+  </calcite-tree-item>
 </calcite-tree>
 ```
 
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -30,14 +29,12 @@
 | `selectionMode` | `selection-mode` | Customize how tree selection works (single, multi, children, multi-children) | `TreeSelectionMode.Children \| TreeSelectionMode.Multi \| TreeSelectionMode.MultiChildren \| TreeSelectionMode.Single` | `TreeSelectionMode.Single` |
 | `theme`         | `theme`          | Select theme (light or dark)                                                 | `"dark" \| "light"`                                                                                                    | `undefined`                |
 
-
 ## Events
 
 | Event               | Description | Type                            |
 | ------------------- | ----------- | ------------------------------- |
 | `calciteTreeSelect` |             | `CustomEvent<TreeSelectDetail>` |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

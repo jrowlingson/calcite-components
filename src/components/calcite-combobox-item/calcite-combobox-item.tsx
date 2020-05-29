@@ -12,19 +12,9 @@ import {
   Watch,
   VNode,
 } from "@stencil/core";
-import {
-  UP,
-  DOWN,
-  TAB,
-  ENTER,
-  ESCAPE,
-  HOME,
-  END,
-  SPACE,
-} from "../../utils/keys";
-
 import { getElementDir, getElementProp } from "../../utils/dom";
 import { CSS } from "./resources";
+import { getKey } from "../../utils/key";
 
 @Component({
   tag: "calcite-combobox-item",
@@ -105,19 +95,19 @@ export class CalciteComboboxItem {
 
   @Listen("keydown") keyDownHandler(event): void {
     event.stopPropagation();
-    switch (event.keyCode) {
-      case SPACE:
-      case ENTER:
+    switch (getKey(event.key)) {
+      case " ":
+      case "Enter":
         this.isSelected = !this.isSelected;
         this.calciteComboboxItemChange.emit(this.el);
         event.preventDefault();
         break;
-      case UP:
-      case DOWN:
-      case HOME:
-      case END:
-      case TAB:
-      case ESCAPE:
+      case "ArrowUp":
+      case "ArrowDown":
+      case "Home":
+      case "End":
+      case "Tab":
+      case "Escape":
         this.calciteComboboxItemKeyEvent.emit({
           event: event,
           item: this.el,
@@ -170,12 +160,7 @@ export class CalciteComboboxItem {
   // --------------------------------------------------------------------------
 
   renderIcon(scale): VNode {
-    const iconScale =
-      scale === "xs" || scale === "s" || scale === "m"
-        ? "s"
-        : scale === "l"
-        ? "m"
-        : "l";
+    const iconScale = scale !== "l" ? "s" : "m";
     const iconPath = this.disabled ? "circle-disallowed" : "check";
     return <calcite-icon class={CSS.icon} scale={iconScale} icon={iconPath} />;
   }

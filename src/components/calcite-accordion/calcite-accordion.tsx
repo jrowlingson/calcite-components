@@ -6,14 +6,14 @@ import {
   h,
   Host,
   Listen,
-  Prop
+  Prop,
 } from "@stencil/core";
-import { UP, DOWN, HOME, END } from "../../utils/keys";
+import { getKey } from "../../utils/key";
 
 @Component({
   tag: "calcite-accordion",
   styleUrl: "calcite-accordion.scss",
-  shadow: true
+  shadow: true,
 })
 export class CalciteAccordion {
   //--------------------------------------------------------------------------
@@ -37,13 +37,15 @@ export class CalciteAccordion {
   @Prop({ mutable: true, reflect: true }) scale: "s" | "m" | "l" = "m";
 
   /** specify the appearance - default (containing border), or minimal (no containing border), defaults to default */
-  @Prop({ mutable: true, reflect: true }) appearance: "default" | "minimal" | "transparent" =
-    "default";
+  @Prop({ mutable: true, reflect: true }) appearance:
+    | "default"
+    | "minimal"
+    | "transparent" = "default";
 
   /** specify the placement of the icon in the header, defaults to end */
   @Prop({ mutable: true, reflect: true }) iconPosition: "start" | "end" = "end";
 
-  /** specify the placement of the icon in the header, defaults to end */
+  /** specify the type of the icon in the header, defaults to chevron */
   @Prop({ mutable: true, reflect: true }) iconType:
     | "chevron"
     | "caret"
@@ -62,7 +64,7 @@ export class CalciteAccordion {
   //
   //--------------------------------------------------------------------------
 
-  @Event() calciteAccordionItemHasChanged: EventEmitter;
+  @Event() calciteAccordionChange: EventEmitter;
 
   //--------------------------------------------------------------------------
   //
@@ -113,44 +115,49 @@ export class CalciteAccordion {
   @Listen("calciteAccordionItemKeyEvent") calciteAccordionItemKeyEvent(
     e: CustomEvent
   ) {
-    let item = e.detail.item;
-    let itemToFocus = e.target;
-    let isFirstItem = this.itemIndex(itemToFocus) === 0;
-    let isLastItem = this.itemIndex(itemToFocus) === this.items.length - 1;
-    switch (item.keyCode) {
-      case DOWN:
-        if (isLastItem) this.focusFirstItem();
-        else this.focusNextItem(itemToFocus);
-        break;
-      case UP:
-        if (isFirstItem) this.focusLastItem();
-        else this.focusPrevItem(itemToFocus);
-        break;
-      case HOME:
-        this.focusFirstItem();
-        break;
-      case END:
-        this.focusLastItem();
-        break;
+    const item = e.detail.item;
+    const parent = e.detail.parent as HTMLCalciteAccordionElement;
+    if (this.el === parent) {
+      const key = getKey(item.key);
+      let itemToFocus = e.target;
+      let isFirstItem = this.itemIndex(itemToFocus) === 0;
+      let isLastItem = this.itemIndex(itemToFocus) === this.items.length - 1;
+      switch (key) {
+        case "ArrowDown":
+          if (isLastItem) this.focusFirstItem();
+          else this.focusNextItem(itemToFocus);
+          break;
+        case "ArrowUp":
+          if (isFirstItem) this.focusLastItem();
+          else this.focusPrevItem(itemToFocus);
+          break;
+        case "Home":
+          this.focusFirstItem();
+          break;
+        case "End":
+          this.focusLastItem();
+          break;
+      }
     }
   }
 
-  @Listen("registerCalciteAccordionItem") registerCalciteAccordionItem(
+  @Listen("calciteAccordionItemRegister") registerCalciteAccordionItem(
     e: CustomEvent
   ) {
     const item = {
       item: e.target as HTMLCalciteAccordionItemElement,
-      position: e.detail.position
+      parent: e.detail.parent as HTMLCalciteAccordionElement,
+      position: e.detail.position as Number,
     };
-    this.items.push(item);
+    if (this.el === item.parent) this.items.push(item);
   }
 
-  @Listen("calciteAccordionItemSelected") updateActiveItemOnChange(
+  @Listen("calciteAccordionItemSelect") updateActiveItemOnChange(
     event: CustomEvent
   ) {
     this.requestedAccordionItem = event.detail.requestedAccordionItem;
-    this.calciteAccordionItemHasChanged.emit({
-      requestedAccordionItem: this.requestedAccordionItem
+    this.calciteAccordionChange.emit({
+      requestedAccordionItem: this.requestedAccordionItem,
     });
   }
 
@@ -167,7 +174,7 @@ export class CalciteAccordion {
   private sorted = false;
 
   /** keep track of the requested item for multi mode */
-  private requestedAccordionItem: string = "";
+  private requestedAccordionItem: HTMLCalciteAccordionItemElement;
 
   //--------------------------------------------------------------------------
   //
@@ -207,5 +214,5 @@ export class CalciteAccordion {
   }
 
   private sortItems = (items: any[]): any[] =>
-    items.sort((a, b) => a.position - b.position).map(a => a.item);
+    items.sort((a, b) => a.position - b.position).map((a) => a.item);
 }

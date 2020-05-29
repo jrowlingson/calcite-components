@@ -16,36 +16,36 @@ describe("calcite-popover", () => {
     defaults("calcite-popover", [
       {
         propertyName: "placement",
-        defaultValue: "auto"
+        defaultValue: "auto",
       },
       {
         propertyName: "referenceElement",
-        defaultValue: undefined
+        defaultValue: undefined,
       },
       {
         propertyName: "offsetDistance",
-        defaultValue: 6
+        defaultValue: 6,
       },
       {
         propertyName: "offsetSkidding",
-        defaultValue: 0
+        defaultValue: 0,
       },
       {
         propertyName: "open",
-        defaultValue: false
+        defaultValue: false,
       },
       {
         propertyName: "closeButton",
-        defaultValue: false
+        defaultValue: false,
       },
       {
         propertyName: "disableFlip",
-        defaultValue: false
+        defaultValue: false,
       },
       {
         propertyName: "disablePointer",
-        defaultValue: false
-      }
+        defaultValue: false,
+      },
     ]));
 
   it("popover positions when referenceElement is set", async () => {
@@ -222,5 +222,60 @@ describe("calcite-popover", () => {
     await page.waitForChanges();
 
     expect(event).toHaveReceivedEventTimes(1);
+  });
+
+  it("guid id should match referenceElement's aria-describedby", async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<calcite-popover open></calcite-popover>`);
+
+    await page.waitForChanges();
+
+    const element = await page.find("calcite-popover");
+
+    await page.$eval("calcite-popover", (elm: any) => {
+      const referenceElement = document.createElement("div");
+      document.body.appendChild(referenceElement);
+      elm.referenceElement = referenceElement;
+    });
+
+    await page.waitForChanges();
+
+    const referenceElement = await page.find("div");
+
+    const id = element.getAttribute("id");
+    const describedby = referenceElement.getAttribute("aria-describedby");
+
+    expect(id).toEqual(describedby);
+  });
+
+  it("user defined id should match referenceElement's aria-describedby", async () => {
+    const page = await newE2EPage();
+
+    const userDefinedId = "user-defined-id";
+
+    await page.setContent(
+      `<calcite-popover id="${userDefinedId}" open></calcite-popover>`
+    );
+
+    await page.waitForChanges();
+
+    const element = await page.find("calcite-popover");
+
+    await page.$eval("calcite-popover", (elm: any) => {
+      const referenceElement = document.createElement("div");
+      document.body.appendChild(referenceElement);
+      elm.referenceElement = referenceElement;
+    });
+
+    await page.waitForChanges();
+
+    const referenceElement = await page.find("div");
+
+    const id = element.getAttribute("id");
+    const describedby = referenceElement.getAttribute("aria-describedby");
+
+    expect(id).toEqual(userDefinedId);
+    expect(describedby).toEqual(userDefinedId);
   });
 });

@@ -1,6 +1,6 @@
 import { Config } from "@stencil/core";
 import { sass } from "@stencil/sass";
-import tailwind from 'rollup-plugin-tailwind';
+import tailwind from "stencil-tailwind";
 
 export const config: Config = {
   namespace: "calcite",
@@ -16,17 +16,21 @@ export const config: Config = {
         "calcite-date",
         "calcite-date-month",
         "calcite-date-month-header",
-        "calcite-date-day"
-      ]
+        "calcite-date-day",
+      ],
     },
     {
       components: [
         "calcite-dropdown",
         "calcite-dropdown-group",
-        "calcite-dropdown-item"
-      ]
+        "calcite-dropdown-item",
+      ],
     },
     { components: ["calcite-icon"] },
+    { components: ["calcite-input"] },
+    { components: ["calcite-input-message"] },
+    { components: ["calcite-label"] },
+    { components: ["calcite-link"] },
     { components: ["calcite-loader"] },
     { components: ["calcite-modal"] },
     { components: ["calcite-notice"] },
@@ -34,6 +38,7 @@ export const config: Config = {
     { components: ["calcite-popover", "calcite-popover-manager"] },
     { components: ["calcite-progress"] },
     { components: ["calcite-radio-group", "calcite-radio-group-item"] },
+    { components: ["calcite-scrim"] },
     { components: ["calcite-slider"] },
     { components: ["calcite-stepper", "calcite-stepper-item"] },
     { components: ["calcite-switch"] },
@@ -42,11 +47,11 @@ export const config: Config = {
         "calcite-tab",
         "calcite-tab-title",
         "calcite-tab-nav",
-        "calcite-tabs"
-      ]
+        "calcite-tabs",
+      ],
     },
     { components: ["calcite-tooltip", "calcite-tooltip-manager"] },
-    { components: ["calcite-tree", "calcite-tree-item"] }
+    { components: ["calcite-tree", "calcite-tree-item"] },
   ],
   outputTargets: [
     { type: "dist-hydrate-script" },
@@ -58,23 +63,24 @@ export const config: Config = {
       prerenderConfig: "./prerender.config.js",
       copy: [{ src: "demos", dest: "demos" }],
       serviceWorker: {
-        unregister: true
-      }
-    }
+        unregister: true,
+      },
+    },
   ],
   globalStyle: "src/assets/styles/global.scss",
   plugins: [
     sass({
-      injectGlobalPaths: ["src/assets/styles/includes.scss"]
+      injectGlobalPaths: ["src/assets/styles/includes.scss"],
     }),
-    tailwind('./tailwind.config.js')
+    tailwind(),
   ],
   testing: {
     moduleNameMapper: {
-      "^/assets/(.*)$": "<rootDir>/src/tests/iconPathDataStub.js"
-    }
+      "^/assets/(.*)$": "<rootDir>/src/tests/iconPathDataStub.js",
+    },
   },
   extras: {
-    appendChildSlotFix: true
-  }
+    appendChildSlotFix: true,
+    slotChildNodesFix: true,
+  },
 };

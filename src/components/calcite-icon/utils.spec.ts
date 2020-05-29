@@ -4,7 +4,7 @@ import {
   iconCache,
   normalizeIconName,
   requestCache,
-  scaleToPx
+  scaleToPx,
 } from "./utils";
 
 describe("utils", () => {
@@ -21,43 +21,46 @@ describe("utils", () => {
       expect(Object.keys(requestCache)).toHaveLength(0);
       expect(Object.keys(iconCache)).toHaveLength(0);
 
-      const smallFilledBanana: FetchIconProps = {
+      const smallBanana: FetchIconProps = {
         icon: "banana",
         scale: "s",
       };
-      const mediumNonFilledBanana: FetchIconProps = {
+      const mediumBanana: FetchIconProps = {
         icon: "banana",
         scale: "m",
       };
-      const mediumFilledBanana: FetchIconProps = {
-        icon: "banana",
+      const circle: FetchIconProps = {
+        icon: "circleF",
+        scale: "s",
+      };
+      const circleKebab: FetchIconProps = {
+        icon: "circle-f",
         scale: "m",
       };
-      const mediumFilledCamera: FetchIconProps = {
-        icon: "camera",
+      const circleCamel: FetchIconProps = {
+        icon: "circleF",
         scale: "m",
       };
 
-      await fetchIcon(smallFilledBanana);
+      await fetchIcon(smallBanana);
       expect(Object.keys(requestCache)).toHaveLength(1);
       expect(Object.keys(iconCache)).toHaveLength(1);
 
-      await fetchIcon(mediumNonFilledBanana);
+      await fetchIcon(mediumBanana);
       expect(Object.keys(requestCache)).toHaveLength(2);
       expect(Object.keys(iconCache)).toHaveLength(2);
 
-      await fetchIcon(mediumFilledBanana);
+      await fetchIcon(circle);
       expect(Object.keys(requestCache)).toHaveLength(3);
       expect(Object.keys(iconCache)).toHaveLength(3);
 
-      await fetchIcon(mediumFilledCamera);
+      await fetchIcon(circleKebab);
       expect(Object.keys(requestCache)).toHaveLength(4);
       expect(Object.keys(iconCache)).toHaveLength(4);
 
-      await fetchIcon(smallFilledBanana);
-      await fetchIcon(mediumNonFilledBanana);
-      await fetchIcon(mediumFilledBanana);
-      await fetchIcon(mediumFilledCamera);
+      await fetchIcon(smallBanana);
+      await fetchIcon(mediumBanana);
+      await fetchIcon(circleCamel);
       expect(Object.keys(requestCache)).toHaveLength(4);
       expect(Object.keys(iconCache)).toHaveLength(4);
     });
@@ -66,6 +69,7 @@ describe("utils", () => {
       // used internally by fetchIcon
       expect(normalizeIconName("aZ")).toBe("aZ");
       expect(normalizeIconName("a-z")).toBe("aZ");
+      expect(normalizeIconName("2d-explore")).toBe("i2DExplore");
       expect(normalizeIconName("2d-explore")).toBe("i2DExplore");
       expect(normalizeIconName("2DExplore")).toBe("i2DExplore");
     });

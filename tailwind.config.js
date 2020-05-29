@@ -35,7 +35,7 @@ module.exports = {
       },
 
       'green-blue': {
-        lightest: '#dbf2f1', // m-gb-010
+       lightest: '#dbf2f1', // m-gb-010
         lighter: '#beedec',  // m-gb-020
         light: '#8fe6e5',    // h-gb-030
         default: '#00bab5',  // h-gb-060
@@ -189,20 +189,19 @@ module.exports = {
     },
 
     fontSize: {
-      '2xs': '.702rem',    // 11.23px
-      'xs': '.79rem',      // 12.64px
-      'sm': '.889rem',     // 14.25px
-      'base': '1rem',      // 16px
-      'lg': '1.125rem',    // 18px
-      'xl': '1.266rem',    // 20.26px
-      '2xl': '1.424rem',   // 22.78px
-      '3xl': '1.602rem',   // 25.63px
-      '4xl': '1.802rem',   // 28.83px
-      '5xl': '2.027rem',   // 32.43px
-      '6xl': '2.280rem',   // 36.48px
-      'display-1': '3.247rem',    // 51.95px
-      'display-1-md': '3.653rem', // 58.44px
-      'display-1-lg': '4.109rem', // 65.74px
+      '2xs': '.625rem',  // 10px
+      'xs': '.75rem',    // 12px
+      'sm': '.875rem',   // 14px
+      'base': '1rem',    // 16px
+      'lg': '1.125rem',  // 18px
+      'xl': '1.25rem',   // 20px
+      '2xl': '1.625rem', // 26px
+      '3xl': '2rem',     // 32px
+      '4xl': '2.5rem',   // 40px
+
+      'display-sm': '3rem',   // 48px
+      'display-md': '3.5rem', // 56px
+      'display-lg': '4rem',   // 64px
     },
 
     borderColor: theme => ({
@@ -234,11 +233,9 @@ module.exports = {
   },
 
   variants: {
-    backgroundColor: [ 'responsive', 'rtl', 'hover', 'focus' ],
     backgroundPosition: [ 'responsive', 'mirror' ],
     borderRadius: [ 'responsive', 'mirror' ],
-    borderStyle: [ 'responsive', 'active' ],
-    borderWidth: [ 'responsive', 'rtl', 'hover', 'focus', 'mirror' ],
+    borderWidth: [ 'responsive', 'rtl', 'mirror' ],
     fontStyle: [ 'responsive', 'hover', 'focus' ],
     fontWeight: [ 'responsive', 'hover' ],
     inset: [ 'responsive', 'rtl', 'mirror' ],

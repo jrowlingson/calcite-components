@@ -33,13 +33,16 @@ To use a custom color for the icon fill, you can add a class to the `calcite-ico
 - [calcite-button](../calcite-button)
 - [calcite-chip](../calcite-chip)
 - [calcite-combobox-item](../calcite-combobox-item)
-- [calcite-date](../calcite-date)
 - [calcite-date-month-header](../calcite-date-month-header)
 - [calcite-dropdown-item](../calcite-dropdown-item)
+- [calcite-input](../calcite-input)
+- [calcite-input-message](../calcite-input-message)
+- [calcite-link](../calcite-link)
 - [calcite-modal](../calcite-modal)
 - [calcite-notice](../calcite-notice)
 - [calcite-pagination](../calcite-pagination)
 - [calcite-popover](../calcite-popover)
+- [calcite-radio-group-item](../calcite-radio-group-item)
 - [calcite-stepper-item](../calcite-stepper-item)
 - [calcite-tree-item](../calcite-tree-item)
 
@@ -52,13 +55,16 @@ graph TD;
   calcite-button --> calcite-icon
   calcite-chip --> calcite-icon
   calcite-combobox-item --> calcite-icon
-  calcite-date --> calcite-icon
   calcite-date-month-header --> calcite-icon
   calcite-dropdown-item --> calcite-icon
+  calcite-input --> calcite-icon
+  calcite-input-message --> calcite-icon
+  calcite-link --> calcite-icon
   calcite-modal --> calcite-icon
   calcite-notice --> calcite-icon
   calcite-pagination --> calcite-icon
   calcite-popover --> calcite-icon
+  calcite-radio-group-item --> calcite-icon
   calcite-stepper-item --> calcite-icon
   calcite-tree-item --> calcite-icon
   style calcite-icon fill:#f9f,stroke:#333,stroke-width:4px

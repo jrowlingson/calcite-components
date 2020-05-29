@@ -1,19 +1,27 @@
-*,
-:after,
-:before {
-  box-sizing: border-box;
-  border: 0 solid #e2e8f0 /* 2 */;
+// scale
+:host([scale="s"]) {
+  --calcite-checkbox-size: 12px;
+  top: 0.1em;
 }
-
+:host([scale="m"]) {
+  --calcite-checkbox-size: 16px;
+  top: 0.15em;
+}
+:host([scale="l"]) {
+  --calcite-checkbox-size: 20px;
+  top: 0.25em;
+}
 ::slotted(input) {
   display: none;
 }
-
 :host {
-  display: inline-block;
+  display: inline-flex;
   cursor: pointer;
+  position: relative;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  width: var(--calcite-checkbox-size);
+  height: var(--calcite-checkbox-size);
 }
 
 //focus
@@ -24,12 +32,48 @@
   @include focus-style-outset();
 }
 
+:host .check-svg {
+  width: var(--calcite-checkbox-size);
+  height: var(--calcite-checkbox-size);
+  overflow: hidden;
+  display: inline-block;
+  background-color: var(--calcite-ui-background);
+  border: 1px solid var(--calcite-ui-border-1);
+  fill: var(--calcite-ui-background);
+  pointer-events: none;
+  transition: $transition;
+  box-sizing: border-box;
+}
+
 :host([disabled]) {
   pointer-events: none;
   cursor: default;
+  .check-svg {
+    background-color: var(--calcite-ui-foreground-2);
+  }
+}
+
+:host([disabled][checked]),
+:host([disabled][indeterminate]) {
+  .check-svg {
+    background-color: $m-bb-050;
+    border-color: $m-bb-050;
+  }
+}
+
+:host([checked]),
+:host([indeterminate]) {
+  .check-svg {
+    background-color: var(--calcite-ui-blue-1);
+    border-color: var(--calcite-ui-blue-1);
+  }
 }
 
 :host(:hover),
 :host(:focus) {
   outline: none;
+  .check-svg {
+    border-color: var(--calcite-ui-blue-1);
+    box-shadow: inset 0 0 0 1px var(--calcite-ui-blue-1);
+  }
 }

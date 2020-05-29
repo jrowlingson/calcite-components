@@ -33,8 +33,8 @@ storiesOf("Card", module)
     <h3 slot="title">ArcGIS Online: Gallery and Organization pages</h3>
     <span slot="subtitle">A great example of a study description that might wrap to a line or two, but isn't
       overly verbose.</span>
-      <calcite-button appearance="inline" theme="dark" slot="footer-leading">Lead footer</calcite-button>
-      <calcite-button appearance="inline" theme="dark" slot="footer-trailing">Trail footer</calcite-button>
+      <calcite-link theme="dark" slot="footer-leading">Lead footer</calcite-link>
+      <calcite-link theme="dark" slot="footer-trailing">Trail footer</calcite-link>
       </calcite-card>
     </div>
   `,
@@ -68,8 +68,8 @@ storiesOf("Card", module)
       <h3 slot="title">My perhaps multiline card title</h3>
       <span slot="subtitle">A great example of a study description that might wrap to a line or two, but isn't
       overly verbose.</span>
-      <calcite-button appearance="inline" theme="dark" slot="footer-leading">Lead footer</calcite-button>
-      <calcite-button appearance="inline" theme="dark" slot="footer-trailing">Trail footer</calcite-button>
+      <calcite-link theme="dark" slot="footer-leading">Lead footer</calcite-link>
+      <calcite-link theme="dark" slot="footer-trailing">Trail footer</calcite-link>
     </calcite-card>
   </div>
     `,
@@ -88,9 +88,9 @@ storiesOf("Card", module)
       <span slot="subtitle">Johnathan Smith</span>
       <span slot="footer-leading">Nov 25, 2018</span>
       <div slot="footer-trailing">
-        <calcite-button id="card-icon-test-6" scale="xs" appearance="transparent" color="dark" icon='circle'>
+        <calcite-button id="card-icon-test-6" scale="s" appearance="transparent" color="dark" icon='circle'>
         </calcite-button>
-        <calcite-button id="card-icon-test-7" scale="xs" appearance="transparent" color="dark" icon='circle'>
+        <calcite-button id="card-icon-test-7" scale="s" appearance="transparent" color="dark" icon='circle'>
         </calcite-button>
       </div>
     </calcite-card>
@@ -113,7 +113,7 @@ storiesOf("Card", module)
         <img slot="thumbnail" src="https://placem.at/places?w=260&h=160&txt=0" />
         <h3 slot="title">Portland Businesses</h3>
         <span slot="subtitle">by
-          <calcite-button appearance="inline" href="">example_user</calcite-button>
+          <calcite-link href="">example_user</calcite-button>
         </span>
         <div>
           Created: Apr 22, 2019
@@ -122,12 +122,12 @@ storiesOf("Card", module)
           <br />
           View Count: 0
         </div>
-        <calcite-button slot="footer-leading" color="light" scale="xs" icon='circle'></calcite-button>
+        <calcite-button slot="footer-leading" color="light" scale="s" icon='circle'></calcite-button>
         <div slot="footer-trailing">
-          <calcite-button scale="xs" color="light" id="card-icon-test-2" icon='circle'></calcite-button>
-          <calcite-button scale="xs" color="light" id="card-icon-test-1" icon='circle'></calcite-button>
+          <calcite-button scale="s" color="light" id="card-icon-test-2" icon='circle'></calcite-button>
+          <calcite-button scale="s" color="light" id="card-icon-test-1" icon='circle'></calcite-button>
           <calcite-dropdown>
-            <calcite-button id="card-icon-test-5" slot="dropdown-trigger" scale="xs" color="light" icon='circle'></calcite-button>
+            <calcite-button id="card-icon-test-5" slot="dropdown-trigger" scale="s" color="light" icon='circle'></calcite-button>
             <calcite-dropdown-group selection-mode="none">
               <calcite-dropdown-item>View details</calcite-dropdown-item>
               <calcite-dropdown-item>Duplicate</calcite-dropdown-item>
@@ -175,8 +175,8 @@ storiesOf("Card", module)
     <h3 slot="title">ArcGIS Online: Gallery and Organization pages</h3>
     <span slot="subtitle">A great example of a study description that might wrap to a line or two, but isn't
       overly verbose.</span>
-      <calcite-button theme="dark" appearance="inline" theme="dark" slot="footer-leading">Lead footer</calcite-button>
-      <calcite-button theme="dark" appearance="inline" theme="dark" slot="footer-trailing">Trail footer</calcite-button>
+      <calcite-link theme="dark" theme="dark" slot="footer-leading">Lead footer</calcite-link>
+      <calcite-link theme="dark" theme="dark" slot="footer-trailing">Trail footer</calcite-link>
       </calcite-card>
     </div>
   `,
@@ -212,8 +212,8 @@ storiesOf("Card", module)
       <h3 slot="title">My perhaps multiline card title</h3>
       <span slot="subtitle">A great example of a study description that might wrap to a line or two, but isn't
       overly verbose.</span>
-      <calcite-button theme="dark" appearance="inline" theme="dark" slot="footer-leading">Lead footer</calcite-button>
-      <calcite-button theme="dark" appearance="inline" theme="dark" slot="footer-trailing">Trail footer</calcite-button>
+      <calcite-link theme="dark" slot="footer-leading">Lead footer</calcite-link>
+      <calcite-link theme="dark" slot="footer-trailing">Trail footer</calcite-link>
     </calcite-card>
   </div>
     `,
@@ -233,9 +233,9 @@ storiesOf("Card", module)
       <span slot="subtitle">Johnathan Smith</span>
       <span slot="footer-leading">Nov 25, 2018</span>
       <div slot="footer-trailing">
-        <calcite-button id="card-icon-test-6" scale="xs" appearance="transparent" color="dark" icon='circle'>
+        <calcite-button id="card-icon-test-6" scale="s" appearance="transparent" color="dark" icon='circle'>
         </calcite-button>
-        <calcite-button id="card-icon-test-7" scale="xs" appearance="transparent" color="dark" icon='circle'>
+        <calcite-button id="card-icon-test-7" scale="s" appearance="transparent" color="dark" icon='circle'>
         </calcite-button>
       </div>
     </calcite-card>
@@ -259,7 +259,7 @@ storiesOf("Card", module)
         <img slot="thumbnail" src="https://placem.at/places?w=260&h=160&txt=0" />
         <h3 slot="title">Portland Businesses</h3>
         <span slot="subtitle">by
-          <calcite-button theme="dark" appearance="inline" href="">example_user</calcite-button>
+          <calcite-link theme="dark" href="">example_user</calcite-link>
         </span>
         <div>
           Created: Apr 22, 2019
@@ -268,12 +268,12 @@ storiesOf("Card", module)
           <br />
           View Count: 0
         </div>
-        <calcite-button slot="footer-leading" color="dark" scale="xs" icon='circle'></calcite-button>
+        <calcite-button slot="footer-leading" color="dark" scale="s" icon='circle'></calcite-button>
         <div slot="footer-trailing">
-          <calcite-button theme="dark" color="dark" scale="xs" id="card-icon-test-2" icon='circle'></calcite-button>
-          <calcite-button theme="dark" color="dark" scale="xs" id="card-icon-test-1" icon='circle'></calcite-button>
+          <calcite-button theme="dark" color="dark" scale="s" id="card-icon-test-2" icon='circle'></calcite-button>
+          <calcite-button theme="dark" color="dark" scale="s" id="card-icon-test-1" icon='circle'></calcite-button>
           <calcite-dropdown>
-            <calcite-button theme="dark" color="dark" id="card-icon-test-5" slot="dropdown-trigger" scale="xs" icon='circle'></calcite-button>
+            <calcite-button theme="dark" color="dark" id="card-icon-test-5" slot="dropdown-trigger" scale="s" icon='circle'></calcite-button>
             <calcite-dropdown-group selection-mode="none">
               <calcite-dropdown-item>View details</calcite-dropdown-item>
               <calcite-dropdown-item>Duplicate</calcite-dropdown-item>

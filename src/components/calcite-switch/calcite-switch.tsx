@@ -10,7 +10,8 @@ import {
   Watch,
   Build,
 } from "@stencil/core";
-import { SPACE, ENTER } from "../../utils/keys";
+import { getElementDir } from "../../utils/dom";
+import { getKey } from "../../utils/key";
 
 @Component({
   tag: "calcite-switch",
@@ -32,11 +33,11 @@ export class CalciteSwitch {
   /** What color the switch should be */
   @Prop({ reflect: true, mutable: true }) color: "red" | "blue" = "blue";
 
-  /** The scale of the button */
+  /** The scale of the switch */
   @Prop({ reflect: true, mutable: true }) scale: "s" | "m" | "l" = "m";
 
   /** The component's theme. */
-  @Prop({ reflect: true, mutable: true }) theme: "light" | "dark" = "light";
+  @Prop({ reflect: true, mutable: true }) theme: "light" | "dark";
 
   @Event() calciteSwitchChange: EventEmitter;
   @Event() change: EventEmitter;
@@ -55,7 +56,8 @@ export class CalciteSwitch {
   }
 
   @Listen("keydown") keyDownHandler(e: KeyboardEvent) {
-    if (e.keyCode === SPACE || e.keyCode === ENTER) {
+    const key = getKey(e.key);
+    if (key === " " || key === "Enter") {
       this.updateSwitch(e);
     }
   }
@@ -70,8 +72,6 @@ export class CalciteSwitch {
 
   connectedCallback() {
     // prop validations
-    let theme = ["light", "dark"];
-    if (!theme.includes(this.theme)) this.theme = "light";
 
     let color = ["blue", "red"];
     if (!color.includes(this.color)) this.color = "blue";
@@ -90,8 +90,11 @@ export class CalciteSwitch {
   }
 
   render() {
+    const dir = getElementDir(this.el);
+
     return (
       <Host
+        dir={dir}
         role="checkbox"
         aria-checked={this.switched.toString()}
         tabIndex={this.tabIndex}
@@ -99,7 +102,6 @@ export class CalciteSwitch {
         <div class="track">
           <div class="handle" />
         </div>
-        <slot />
       </Host>
     );
   }

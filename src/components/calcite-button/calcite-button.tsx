@@ -9,6 +9,8 @@ import {
   State,
 } from "@stencil/core";
 
+import { getElementDir } from "../../utils/dom";
+
 @Component({
   tag: "calcite-button",
   styleUrl: "calcite-button.scss",
@@ -19,7 +21,6 @@ import {
 
 /** Any attributes placed on <calcite-button> component will propagate to the rendered child */
 /** Passing a 'href' will render an anchor link, instead of a button. Role will be set to link, or button, depending on this. */
-/** Using appearance=inline will also render as an anchor link. */
 /** It is the consumers responsibility to add aria information, rel, target, for links, and any button attributes for form submission */
 export class CalciteButton {
   //--------------------------------------------------------------------------
@@ -43,20 +44,18 @@ export class CalciteButton {
     | "light"
     | "red" = "blue";
 
-  /** specify the appearance style of the button, defaults to solid. Specifying "inline" will render the component as an anchor */
+  /** specify the appearance style of the button, defaults to solid. */
   @Prop({ mutable: true, reflect: true }) appearance:
     | "solid"
     | "outline"
     | "clear"
-    | "inline"
     | "transparent" = "solid";
 
   /** Select theme (light or dark) */
-  @Prop({ reflect: true }) theme: "light" | "dark" = "light";
+  @Prop({ mutable: true, reflect: true }) theme: "light" | "dark";
 
   /** specify the scale of the button, defaults to m */
-  @Prop({ mutable: true, reflect: true }) scale: "xs" | "s" | "m" | "l" | "xl" =
-    "m";
+  @Prop({ mutable: true, reflect: true }) scale: "s" | "m" | "l" = "m";
 
   /** specify the width of the button, defaults to auto */
   @Prop({ mutable: true, reflect: true }) width: "auto" | "half" | "full" =
@@ -92,26 +91,24 @@ export class CalciteButton {
 
   connectedCallback() {
     // prop validations
-    let appearance = ["solid", "outline", "clear", "inline", "transparent"];
+
+    let appearance = ["solid", "outline", "clear", "transparent"];
     if (!appearance.includes(this.appearance)) this.appearance = "solid";
 
     let color = ["blue", "red", "dark", "light"];
     if (!color.includes(this.color)) this.color = "blue";
 
-    let scale = ["xs", "s", "m", "l", "xl"];
+    let scale = ["s", "m", "l"];
     if (!scale.includes(this.scale)) this.scale = "m";
 
     let width = ["auto", "half", "full"];
     if (!width.includes(this.width)) this.width = "auto";
+
     let iconPosition = ["start", "end"];
     if (this.icon !== null && !iconPosition.includes(this.iconPosition))
       this.iconPosition = "start";
 
-    this.childElType = this.href
-      ? "a"
-      : this.appearance === "inline"
-      ? "span"
-      : "button";
+    this.childElType = this.href ? "a" : "button";
     this.setupTextContentObserver();
   }
 
@@ -304,11 +301,10 @@ export class CalciteButton {
   }
 
   render() {
+    const dir = getElementDir(this.el);
     const attributes = this.getAttributes();
     const Tag = this.childElType;
-    const role = this.childElType === "span" ? "button" : null;
-    const tabIndex = this.childElType === "span" ? 0 : null;
-    const { textColor } = this.colors;
+
     const loader = (
       <div
         class={`flex items-center justify-center absolute inset-0 text-${textColor}`}
@@ -317,15 +313,7 @@ export class CalciteButton {
       </div>
     );
 
-    const iconScale =
-      this.appearance === "inline" ||
-      this.scale === "xs" ||
-      this.scale === "s" ||
-      this.scale === "m"
-        ? "s"
-        : this.scale === "l"
-        ? "m"
-        : "l";
+    const iconScale = this.scale === "l" ? "m" : "s";
 
     const iconEl = (
       <calcite-icon
@@ -338,11 +326,9 @@ export class CalciteButton {
     );
 
     return (
-      <Host hasText={this.hasText}>
+      <Host hasText={this.hasText} dir={dir}>
         <Tag
           {...attributes}
-          role={role}
-          tabindex={tabIndex}
           onClick={(e) => this.handleClick(e)}
           disabled={this.disabled}
           ref={(el) => (this.childEl = el)}
@@ -384,13 +370,13 @@ export class CalciteButton {
   private childEl?: HTMLElement;
 
   /** the node type of the rendered child element */
-  private childElType?: "a" | "span" | "button" = "button";
+  private childElType?: "a" | "button" = "button";
 
   /** determine if there is slotted text for styling purposes */
   @State() private hasText?: boolean = false;
 
   private updateHasText() {
-    this.hasText = this.el.textContent.length > 0;
+    this.hasText = this.el.textContent.trim().length > 0;
   }
 
   private setupTextContentObserver() {
@@ -414,6 +400,7 @@ export class CalciteButton {
       "id",
       "loading",
       "scale",
+      "slot",
       "width",
       "theme",
     ];

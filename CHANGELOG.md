@@ -5,11 +5,106 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Breaking Changes
+
+- `calcite-accordion` - `calciteAccordionItemHasChanged` event has been renamed to `calciteAccordionChange`
+- `calcite-accordion-item` - `calciteAccordionItemSelected` event has been renamed to `calciteAccordionItemSelect`
+- `calcite-accordion-item` - `closeCalciteAccordionItem` event has been renamed to `calciteAccordionItemClose`
+- `calcite-accordion-item` - `registerCalciteAccordionItem` event has been renamed to `calciteAccordionItemRegister`
+
+### Fixed
+
+- `calcite-accordion` - Fix for incorrect keyboard navigation behavior when a `calcite-accordion` was nested inside another `calcite-accordion`
+- `calcite-accordion` - Fix for incorrect display of `icon-position` when a `calcite-accordion` was nested inside another `calcite-accordion`
+
+## [v1.0.0-beta.27] - May 26th 2020
+
+### Breaking Changes
+
+- `calcite-input` - `calciteInputChange` event has been renamed to `calciteInputInput`
+
+### Added
+
+- `calcite-radio-group` now has a `width` prop that accepts `auto` (default) or `full` values.
+
+### Fixed
+
+- `calcite-input` - will now properly position a requested `icon` if `prefix-text` is also set
+- `calcite-switch` - will now properly display in RTL
+- `calcite-alert` - will now properly animate the direction of the auto-dismiss progress bar in RTL
+- `calcite-tree` - will now properly wrap long, unbroken strings in `calcite-tree-item` children
+
+### Updated
+
+- `calcite-accordion` - styling of `icon-position=end` icons has been updated for `chevron` and `caret` values - it will now display upward when a `calcite-accordion-item` is collapsed, and downward when expanded
+- `calcite-input` - when `status="valid"`, icon (if present) will appear green
+
+## [v1.0.0-beta.26] - May 18th 2020
+
+### Breaking Changes
+
+- `calcite-checkbox` - `size` prop is now `scale` to be consistent with other components
+- `calcite-chip` - will not show the dismiss ("x") button unless new `dismissible` prop is `true`
+- `calcite-button` - will no longer accept `xs` or `xl` values for `scale` prop
+- `calcite-chip` - will no longer accept `xs` or `xl` values for `scale`
+- `calcite-combobox` - will no longer accept `xs` or `xl` values for `scale`
+
+### Added
+
+- `calcite-radio-group-item` can now display an icon by passing a Calcite UI Icon name to the `icon` attribute. The icon can be positioned with the `icon-position` attribute.
+- `calcite-split-button` now accepts `ellipsis` as a value for the `dropdown-icon-type` attribute
+- `calcite-graph` component for simple area graphs from series data sets
+- `calcite-chip` - now has a `color` prop that will accept `grey` (default), `blue`, `red`, `yellow`, and `green` as values
+- `calcite-chip` - now has an `appearance` prop that will accept `solid` (default) and `clear` as values
+
+### Fixed
+
+- `calcite-dropdown` - will now properly open and close when children of the `dropdown-trigger` slot are acted on.
+- `calcite-button` - now trims whitespace to accurately display "icon only" buttons as squares.
+- `:root` styles now include some text rendering improvements
+- `calcite-input` - fixed missing icons in firefox
+- `calcite-date` - fixed small margin/gap above input
+
+### Updated
+
+- `calcite-button` - styling of `appearance=transparent` buttons has been updated
+- `calcite-button` - dimensions and font-size of buttons have been updated
+
+## [v1.0.0-beta.25] - Apr 28th 2020
+
+### Breaking Changes
+
+- `calcite-button` no longer accepts `inline` as a value for `appearance` - you can instead use the new `calcite-link` component
+- `calcite-pagination` - `backgroundStyle` property removed (always transparent)
+- `calcite-pagination` - `num`, `start`, and `total` now refer to records not pages
+- `calcite-pagination` - `calcitePaginationUpdate` event now only fires in response to user input
+- `calcite-pagination` - `setPage` method removed
+- `calcite-date` - `show-calendar` prop changed to `active`
+
+### Added
+
+- new component `calcite-link`
+- new `calcite-label`, `calcite-input`, and `calcite-input-message` components
+- `calcite-slider` can now be programmatically focused with the `setFocus()` method
+- `calcite-date` now has `scale` prop for small, medium, and large
+- `calcite-radio-group` now has an `appearance` prop that accepts `outline` or `solid` (default) values
+- `calcite-radio-group` now has a `layout` prop that accepts `vertical` or `horizontal` (default) values
+- `calcite-input` can now be programmatically focused with the `setFocus()` method
+- `calcite-pagination` now has a `scale` prop that accepts `s`, `m` (default), or `l` values
+- `calcite-accordion-item` can now display an icon by passing a Calcite UI Icon name to the `icon` attribute
+
+### Fixed
+
+- `calcite-pagination` - pages and next/previous can now be navigated with keyboard
+- `calcite-icon` - fixed use of kebab case in filled icon variants (#494)
+
 ## [v1.0.0-beta.24] - Apr 8th 2020
 
 ### Fixed
 
-- fix NPM deployment issue
+- fix NPM release issue
 
 ## [v1.0.0-beta.23] - Apr 7th 2020
 
@@ -344,6 +439,9 @@ Fix issue with previous release.
 
 First initial beta release.
 
+[v1.0.0-beta.27]: https://github.com/Esri/calcite-components/compare/v1.0.0-beta.26...v1.0.0-beta.27 "v1.0.0-beta.27"
+[v1.0.0-beta.26]: https://github.com/Esri/calcite-components/compare/v1.0.0-beta.25...v1.0.0-beta.26 "v1.0.0-beta.26"
+[v1.0.0-beta.25]: https://github.com/Esri/calcite-components/compare/v1.0.0-beta.24...v1.0.0-beta.25 "v1.0.0-beta.25"
 [v1.0.0-beta.24]: https://github.com/Esri/calcite-components/compare/v1.0.0-beta.23...v1.0.0-beta.24 "v1.0.0-beta.24"
 [v1.0.0-beta.23]: https://github.com/Esri/calcite-components/compare/v1.0.0-beta.22...v1.0.0-beta.23 "v1.0.0-beta.23"
 [v1.0.0-beta.22]: https://github.com/Esri/calcite-components/compare/v1.0.0-beta.21...v1.0.0-beta.22 "v1.0.0-beta.22"
@@ -368,4 +466,4 @@ First initial beta release.
 [v1.0.0-beta.3]: https://github.com/Esri/calcite-components/compare/v1.0.0-beta.2...v1.0.0-beta.3 "v1.0.0-beta.3"
 [v1.0.0-beta.2]: https://github.com/Esri/calcite-components/compare/v1.0.0-beta.1...v1.0.0-beta.2 "v1.0.0-beta.2"
 [v1.0.0-beta.1]: https://github.com/Esri/calcite-components/compare/dafb2312835ec6fef134d0d2b20aabd1dfe907cf...v1.0.0-beta.1 "v1.0.0-beta.1"
-[head]: https://github.com/Esri/calcite-components/compare/v1.0.0-beta.19...HEAD "Unreleased Changes"
+[head]: https://github.com/Esri/calcite-components/compare/v1.0.0-beta.21...HEAD "Unreleased Changes"

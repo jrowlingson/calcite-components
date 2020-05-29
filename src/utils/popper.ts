@@ -2,7 +2,7 @@ import {
   Placement,
   Instance as Popper,
   createPopper as setupPopper,
-  Modifier
+  StrictModifiers,
 } from "@popperjs/core";
 import { getElementDir } from "../utils/dom";
 
@@ -36,10 +36,10 @@ export function createPopper({
   el,
   open,
   placement,
-  modifiers
+  modifiers,
 }: {
   el: HTMLElement;
-  modifiers: Partial<Modifier<any>>[];
+  modifiers: Partial<StrictModifiers>[];
   open: boolean;
   placement: CalcitePlacement;
   referenceEl: HTMLElement;
@@ -50,7 +50,7 @@ export function createPopper({
 
   return setupPopper(referenceEl, el, {
     placement: getPlacement(el, placement),
-    modifiers
+    modifiers,
   });
 }
 
@@ -58,10 +58,10 @@ export function updatePopper({
   el,
   modifiers,
   placement: calcitePlacement,
-  popper
+  popper,
 }: {
   el: HTMLElement;
-  modifiers: Partial<Modifier<any>>[];
+  modifiers: Partial<StrictModifiers>[];
   popper: Popper;
   placement: CalcitePlacement;
 }): void {
@@ -69,7 +69,7 @@ export function updatePopper({
 
   popper.setOptions({
     modifiers,
-    placement
+    placement,
   });
 }
 

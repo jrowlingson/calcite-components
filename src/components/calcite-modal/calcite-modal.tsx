@@ -12,6 +12,7 @@ import {
 } from "@stencil/core";
 import { queryShadowRoot, isHidden, isFocusable } from "@a11y/focus-trap";
 import { getElementDir } from "../../utils/dom";
+import { getKey } from "../../utils/key";
 
 @Component({
   tag: "calcite-modal",
@@ -67,6 +68,7 @@ export class CalciteModal {
         aria-modal="true"
         class={{ "is-active": this.isActive }}
       >
+        <calcite-scrim class="scrim" theme="dark"></calcite-scrim>
         <div class="modal">
           <div
             data-focus-fence="true"
@@ -122,7 +124,7 @@ export class CalciteModal {
   //
   //--------------------------------------------------------------------------
   @Listen("keyup", { target: "window" }) handleEscape(e: KeyboardEvent) {
-    if (this.isActive && !this.disableEscape && e.key === "Escape") {
+    if (this.isActive && !this.disableEscape && getKey(e.key) === "Escape") {
       this.close();
     }
   }
