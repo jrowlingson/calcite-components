@@ -236,13 +236,9 @@ module.exports = {
   variants: {
     backgroundColor: [ 'responsive', 'rtl', 'hover', 'focus' ],
     backgroundPosition: [ 'responsive', 'mirror' ],
-    borderColor: [ 'dark', 'hover', 'focus' ],
     borderRadius: [ 'responsive', 'mirror' ],
     borderStyle: [ 'responsive', 'active' ],
     borderWidth: [ 'responsive', 'rtl', 'hover', 'focus', 'mirror' ],
-    boxShadow: [ 'active', 'responsive', 'hover', 'focus' ],
-    clear: [ 'responsive', 'mirror' ],
-    float: [ 'responsive', 'mirror' ],
     fontStyle: [ 'responsive', 'hover', 'focus' ],
     fontWeight: [ 'responsive', 'hover' ],
     inset: [ 'responsive', 'rtl', 'mirror' ],
@@ -316,11 +312,6 @@ module.exports = {
           }
         })
         container.append(newRules)
-      })
-      addVariant('dark', ({ modifySelectors, separator }) => {
-        modifySelectors(({ className }) => {
-          return `:host([theme="dark"]) .${e(`dark${separator}${className}`)}`
-        })
       })
     },
   ],
