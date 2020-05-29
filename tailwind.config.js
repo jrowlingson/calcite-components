@@ -283,11 +283,7 @@ module.exports = {
           const reversablePosition = /(right|left)-(0|auto)/.test(className)
           const reversableProperty = reversableMarginOrPadding || reversableBorderRadius || reversableBorderWidth || reversablePosition
 
-          const reversableFloat = /float-(right|left)/.test(className)
-          const reversableClear = /clear-(right|left)/.test(className)
-          const reversableTextAlign = /text-(right|left)/.test(className)
-          const reversableBackgroundPosition = /bg-(right|left)(-(bottom|top))?/.test(className)
-          const reversableValue = reversableFloat || reversableClear || reversableTextAlign || reversableBackgroundPosition
+          const reversableValue = /text-(right|left)/.test(className)
 
           if (reversableProperty || reversableValue) {
             rule.selector = `:host([dir="ltr"]) .${e(`mirror${separator}${className}`)}`
