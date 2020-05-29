@@ -279,7 +279,7 @@ module.exports = {
       })
       addVariant('mirror', ({ container, separator }) => {
         const newRules = []
-        container.each(rule => {
+        container.walkRules(rule => {
           const className = rule.selector.slice(1)
           const reversableMarginOrPadding = /-?(m|p)(l|r)-(px|auto|[0-9]+)/.test(className)
           const reversableBorderRadius = /rounded-(l|r|tl|tr|bl|br)(-[a-z]+)?/.test(className)
