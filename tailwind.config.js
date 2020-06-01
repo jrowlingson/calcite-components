@@ -7,10 +7,27 @@ module.exports = {
     colors: {
       // Basic colors
       blue: {
+        h: {
+          60: colors['h-bb-060'],
+          70: colors['h-bb-070'],
+        },
         m: {
           50: colors['m-bb-050']
+        },
+        d: {
+          420: colors['d-bb-420']
         }
-      }
+      },
+
+      red: {
+        h: {
+          60: colors['h-rr-060'],
+          70: colors['h-rr-070']
+        },
+        d: {
+          420: colors['d-rr-420']
+        }
+      },
 
       // Functional colors
       'ui-blue': {
@@ -168,6 +185,7 @@ module.exports = {
     position: [ 'responsive', 'rtl' ],
     stroke: [],
     textAlign: [ 'responsive', 'rtl', 'mirror' ],
+    textColor: [ 'responsive', 'dark', 'hover', 'focus' ],
   },
 
   corePlugins: {
