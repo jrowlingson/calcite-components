@@ -185,7 +185,7 @@ module.exports = {
     position: [ 'responsive', 'rtl' ],
     stroke: [],
     textAlign: [ 'responsive', 'rtl', 'mirror' ],
-    textColor: [ 'responsive', 'dark', 'hover', 'focus' ],
+    textColor: [ 'responsive', 'hover', 'focus' ],
   },
 
   corePlugins: {
