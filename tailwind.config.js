@@ -158,6 +158,44 @@ module.exports = {
         secondary: 'var(--app-brand-secondary, #f36f20)', // orange
       },
 
+      'ui-blue': {
+        1: 'var(--calcite-ui-blue-1)',
+        2: 'var(--calcite-ui-blue-2)',
+        3: 'var(--calcite-ui-blue-3)',
+      },
+      'ui-green': {
+        1: 'var(--calcite-ui-green-1)',
+        2: 'var(--calcite-ui-green-2)',
+        3: 'var(--calcite-ui-green-3)',
+      },
+      'ui-red': {
+        1: 'var(--calcite-ui-red-1)',
+        2: 'var(--calcite-ui-red-2)',
+        3: 'var(--calcite-ui-red-3)',
+      },
+      'ui-yellow': {
+        1: 'var(--calcite-ui-yellow-1)',
+        2: 'var(--calcite-ui-yellow-2)',
+        3: 'var(--calcite-ui-yellow-3)',
+      },
+      'ui-background': 'var(--calcite-ui-background)',
+      'ui-border': {
+        1: 'var(--calcite-ui-border-1)',
+        2: 'var(--calcite-ui-border-2)',
+        3: 'var(--calcite-ui-border-3)',
+        4: 'var(--calcite-ui-border-4)',
+        5: 'var(--calcite-ui-border-5)',
+      },
+      'ui-foreground': {
+        1: 'var(--calcite-ui-foreground-1)',
+        2: 'var(--calcite-ui-foreground-2)',
+        3: 'var(--calcite-ui-foreground-3)',
+      },
+      'ui-text': {
+        1: 'var(--calcite-ui-text-1)',
+        2: 'var(--calcite-ui-text-2)',
+        3: 'var(--calcite-ui-text-3)',
+      },
     },
 
     screens: {
